@@ -240,7 +240,7 @@ $name=mysqli_fetch_assoc($result);
     <head> </head>
     <body>
         <div class="topnavigation">
-            <a href="../login-signup/index.php">Home</a>
+            <a href="../Dashboard/index.php">Home</a>
             <a class="active" href="index.php" >Profile</a>
             <a href="../Anime/index.php"> Anime</a>
             <a href="../Manga/index.php">Manga</a>

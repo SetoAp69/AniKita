@@ -323,10 +323,13 @@ $user_data =check_login($con);
                             if(isset($_GET['search']))
                             {
                                 $filtervalues=$_GET['search'];
-                                $searchQuery="SELECT o.object_id 'id', o.name 'name',o.type_id 't_id', a.name 'Studio',  ROUND(AVG(r.rate) ,2) 'avg_rate',COUNT(r.object_id)'rate_count' 
-                                FROM object o, type_of_object t, rating_table r, author a 
-                                WHERE o.object_id=r.object_id AND t.type_id=o.type_id AND a.author_id=o.author_id AND o.type_id='1' AND o.name LIKE '%$filtervalues%'
-                                GROUP BY r.object_id ";
+                                $searchQuery="SELECT object.name 'name', object.object_id 'id', author.name 'studio',  AVG(rating_table.rate) 'avg_rate', COUNT(rating_table.rate) 'rate_count'
+                                FROM 
+                                author JOIN object USING(author_id)
+                                LEFT JOIN 
+                                rating_table USING(object_id) 
+                                WHERE object.type_id='1'
+                                GROUP BY (object.object_id) ";
                                 $searchResult=mysqli_query($con,$searchQuery);
 
                                 if(mysqli_num_rows($searchResult)>0){
@@ -362,10 +365,13 @@ $user_data =check_login($con);
                             }
                             else{
                                 ?> <?php 
-                                $query1="SELECT o.object_id 'id', o.name, a.name 'Studio',o.type_id 't_id',  ROUND(AVG(r.rate) ,2) 'avg_rate',COUNT(r.object_id)'rate_count' 
-                                FROM object o, type_of_object t, rating_table r, author a 
-                                WHERE o.object_id=r.object_id AND t.type_id=o.type_id AND a.author_id=o.author_id AND o.type_id='1'
-                                GROUP BY r.object_id ";
+                                $query1="SELECT object.name 'name', object.object_id 'id', author.name 'studio',  AVG(rating_table.rate) 'avg_rate', COUNT(rating_table.rate) 'rate_count'
+                                FROM 
+                                author JOIN object USING(author_id)
+                                LEFT JOIN 
+                                rating_table USING(object_id) 
+                                WHERE object.type_id='1'
+                                GROUP BY (object.object_id) ";
                                 $result=mysqli_query($con,$query1);
 
                                 if(mysqli_num_rows($result)>0){
