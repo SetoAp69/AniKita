@@ -323,7 +323,7 @@ $user_data =check_login($con);
                             if(isset($_GET['search']))
                             {
                                 $filtervalues=$_GET['search'];
-                                $searchQuery="SELECT object.name 'name', object.type_id 't_id',object.object_id 'id', author.name 'Studio',  AVG(rating_table.rate) 'avg_rate', COUNT(rating_table.rate) 'rate_count'
+                                $searchQuery="SELECT object.name 'name', object.type_id 't_id',object.object_id 'id', author.name 'Studio',  ROUND(AVG(rating_table.rate),2) 'avg_rate', COUNT(rating_table.rate) 'rate_count'
                                 FROM 
                                 author JOIN object USING(author_id)
                                 LEFT JOIN 
