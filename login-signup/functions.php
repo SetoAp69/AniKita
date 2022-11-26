@@ -11,17 +11,25 @@ function check_login($con){
     }
 
    }
+   else{
+    header("Location: ../../login-signup/login.php");
+   die;
+
+   }
    
    if(isset( $_SESSION['user_name'])){
     $id=$_SESSION['user_name'];
-    $query="SELECT* FROM admin WHERE admin_id='$id' limit 1";
-    $result1=mysqli_query($con,$query);
+    $query1="SELECT* FROM admin WHERE admin_id='$id' limit 1";
+    $result1=mysqli_query($con,$query1);
     if($result1 && mysqli_num_rows($result1)>0){
         $user_data=mysqli_fetch_assoc($result1);
         return $user_data;
     }
    }
-
-   header("Location: ../../login-signup/login.php");
+   else{
+    header("Location: ../../login-signup/login.php");
    die;
+   }
+
+   
 }

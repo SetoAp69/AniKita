@@ -23,7 +23,7 @@ include("functions.php");
 
                     if($user_data['password']==$password){
                         $_SESSION['admin_id']=$user_data['admin_id'];
-                        header("Location:index.php");
+                        header("Location:../Admin/Pages/Dashboard/index.php");
                         die;
                     }
                     
