@@ -6,11 +6,15 @@ include("../../login-signup/functions.php");
 $user_data =check_login($con);
 $username=$_SESSION["user_name"];
 $query ="SELECT name FROM user WHERE username='$username' LIMIT 1";
-$query1="SELECT o.object_id 'id', o.name, t.name 'type', a.name 'author', r.rate ,t.type_id 't_id'
-FROM user u, object o, author a, type_of_object t, rating_table r 
-WHERE u.username='$username' AND o.object_id=r.object_id AND t.type_id=o.type_id AND a.author_id=o.author_id AND u.username=r.username AND o.type_id='3'";
 $result=mysqli_query($con,$query);
-$rating_table_result=mysqli_query($con,$query1);
+$name=mysqli_fetch_assoc($result); 
+$dataLimit = 10;
+$username = $_SESSION['user_name'];
+$totalData = 0;
+$totalPage = 0;
+$activePage = (isset($_GET["page"])) ? $_GET["page"] : 1;
+$firstData = ($dataLimit) * ($activePage - 1);
+$result=mysqli_query($con,$query);
 $name=mysqli_fetch_assoc($result); 
 
 ?>
@@ -205,6 +209,7 @@ $name=mysqli_fetch_assoc($result);
         border-radius: 5px;
 
     }
+
     .table-btn-col{
         text-align: left;
         margin-left: 5%;
@@ -230,6 +235,24 @@ $name=mysqli_fetch_assoc($result);
     }
     .ref{
         color: white;
+    }
+    .pageNav{
+        padding: 6px;
+        background-color: hotpink;
+        float:left;
+        margin-left:5px;
+        color:white;
+        text-decoration: none;
+
+    }
+    .pageNav :hover{
+        background-color:grey;
+    }
+    #active{
+        background-color: cornflowerblue;
+    }
+    .pageNav-Container{
+        float:right;
     }
     
 
@@ -313,17 +336,14 @@ $name=mysqli_fetch_assoc($result);
                                 <col width="30%"/>
                                 <col width="5%"/>
                                 <col width="20%"/>
-                                <col width="5%"/>
-                                <col width="5%"/>
-                                <col width="5%"/>
+                                <col width="15%"/>
+                                
                             <tr>
                                 <th>ID</th>
                                 <th> Name </th>
                                 <th> Type </th>
                                 <th> Author </th>
                                 <th> Your rate </th>
-                                <th>Total Rate</th>
-                                <th> Total Rate Count</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -332,21 +352,36 @@ $name=mysqli_fetch_assoc($result);
                             if(isset($_GET['search']))
                             {
                                 $filtervalues=$_GET['search'];
-                                $searchQuery="SELECT o.object_id 'id', o.name, t.name 'type', a.name 'author', r.rate, t.type_id 't_id' 
+                                
+                                $totalSearchData = mysqli_query($con,"SELECT* FROM rating_table JOIN object USING (object_id)
+                                 WHERE username='$username' AND object.name LIKE '%$filtervalues%' AND object.type_id='3'");
+
+                                $searchQuery="SELECT o.object_id 'id', o.name, t.name 'type', a.name 'author', r.rate, t.type_id 't_id',a.author_id 
                                 FROM user u, object o, author a, type_of_object t, rating_table r 
-                                WHERE u.username='$username' AND o.object_id=r.object_id AND t.type_id=o.type_id AND a.author_id=o.author_id AND u.username=r.username AND o.name LIKE'%$filtervalues%' ";
+                                WHERE u.username='$username' AND o.object_id=r.object_id  AND o.type_id='3'
+                                AND t.type_id=o.type_id AND a.author_id=o.author_id AND u.username=r.username AND o.name 
+                                LIKE'%$filtervalues%' ORDER BY o.object_id LIMIT $firstData,$dataLimit";
                                 $searchResult=mysqli_query($con,$searchQuery);
+
+                                $totalData = mysqli_num_rows($totalSearchData);
+                                $totalPage = ceil($totalData / $dataLimit);
 
                                 if(mysqli_num_rows($searchResult)>0){
                                     foreach ($searchResult as $rows) {
                                         ?>
                                         <tr>
                                             <td><?=$rows['id'];?> </td>
-                                            <td> <a style="color: black; font-weight: bold;" href="../../Object/<?=$rows['t_id'];?>/<?=$rows['id'];?>/index.php"> <?=$rows['name'];?> </a>  </td>
+                                            <td> 
+                                                <a style="color: black; font-weight: bold;" href="../../Object/<?=$rows['t_id'];?>/<?=$rows['id'];?>/index.php"> 
+                                                 <?=$rows['name'];?> 
+                                                </a>  
+                                            </td>
                                             <td><?=$rows['type'];?> </td>
-                                            <td><?=$rows['author'];?> </td>
-                                            <td><?=$rows['rate'];?> </td>
-                                            <td><?=$rows['rate'];?> </td>
+                                            <td>
+                                                 <a style="color: black; font-weight: bold; " href="index-by-author.php? id=<?=$rows['author_id'];?>"> 
+                                                 <?=$rows['author'];?> 
+                                                </a> 
+                                            </td>
                                             <td><?=$rows['rate'];?> </td>
                                             <td class="table-btn-col">
                                                 <div class="table-btn">
@@ -358,12 +393,8 @@ $name=mysqli_fetch_assoc($result);
                                                     <a class="ref" href="delete.php? id=<?=$rows['id'];?>"> delete</a>
 
                                                 </div>
-                                                
-                                                
-                                                
                                             </td>
                                         </tr>
-
                                         <?php
                                     }
 
@@ -371,7 +402,16 @@ $name=mysqli_fetch_assoc($result);
 
                             }
                             else{
-                                ?> <?php 
+                                //diplay all data
+                                ?> <?php
+                                $queryx="SELECT* FROM rating_table JOIN object USING(object_id) where username='$username' AND object.type_id='3' ";
+                                $count_result=mysqli_query($con,$queryx);
+                                $totalData = mysqli_num_rows($count_result);
+                                $totalPage = ceil($totalData / $dataLimit);
+                                $query1 = "SELECT o.object_id 'id', o.name, t.name 'type', a.name 'author', r.rate ,t.type_id 't_id',a.author_id
+                                FROM user u, object o, author a, type_of_object t, rating_table r 
+                                WHERE u.username='$username' AND o.object_id=r.object_id AND t.type_id=o.type_id  AND o.type_id='3'
+                                AND a.author_id=o.author_id AND u.username=r.username ORDER BY o.object_id LIMIT $firstData,$dataLimit";
                                 $result=mysqli_query($con,$query1);
 
                                 if(mysqli_num_rows($result)>0){
@@ -379,11 +419,17 @@ $name=mysqli_fetch_assoc($result);
                                         ?>
                                         <tr>
                                             <td><?=$rows['id'];?> </td>
-                                            <td> <a style="color: black; font-weight: bold;" href="../../Object/<?=$rows['t_id'];?>/<?=$rows['id'];?>/index.php"> <?=$rows['name'];?> </a>  </td>
+                                            <td> 
+                                                <a style="color: black; font-weight: bold;" href="../../Object/<?=$rows['t_id'];?>/<?=$rows['id'];?>/index.php"> 
+                                                 <?=$rows['name'];?> 
+                                                </a>  
+                                            </td>
                                             <td><?=$rows['type'];?> </td>
-                                            <td><?=$rows['author'];?> </td>
-                                            <td><?=$rows['rate'];?> </td>
-                                            <td><?=$rows['rate'];?> </td>
+                                            <td>
+                                                 <a style="color: black; font-weight: bold; " href="index-by-author.php? id=<?=$rows['author_id'];?>"> 
+                                                 <?=$rows['author'];?> 
+                                                </a> 
+                                            </td>
                                             <td><?=$rows['rate'];?> </td>
                                             <td class="table-btn-col">
                                                 <div class="table-btn">
@@ -395,9 +441,6 @@ $name=mysqli_fetch_assoc($result);
                                                     <a class="ref" href="delete.php? id=<?=$rows['id'];?>"> delete</a>
 
                                                 </div>
-                                                
-                                                
-                                                
                                             </td>
                                         </tr>
 
@@ -406,26 +449,63 @@ $name=mysqli_fetch_assoc($result);
                                     }
                                 }
 
-
-
-
-                                
-
                                 ?>
                                 <?php
                             }
-
-
                             ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pageNav-Container">
+                <?php
+                        for ($i = 1; $i <= $totalPage;$i++) {
+                            if($i==$activePage){
+                                if(isset($_GET['search'])){
+                                    $filtervalues = $_GET['search'];
+                                    ?>
+                                    <a class="pageNav" id="active"  href="?page=<?= $i; ?>&search=<?=$filtervalues;?>"> <?=$i;?></a>
+                                    <?php
+    
+                                }
+                                else{
+                                    ?>
+                                    <a class="pageNav" id="active" href="?page=<?=$i;?>"><?= $i;?></a>
+    
+                                    <?php
+                                }
+
+                            }
+                            else{
+                                if(isset($_GET['search'])){
+                                    $filtervalues = $_GET['search'];
+                                    ?>
+                                    <a class="pageNav" href="?page=<?= $i; ?>&search=<?=$filtervalues;?>"> <?=$i;?></a>
+                                    <?php
+                                    
+    
+                                }
+                                else{
+                                    ?>
+                                    <a class="pageNav" href="?page=<?=$i;?>"><?= $i;?></a>
+    
+                                    <?php
+                                }
+
+                            }
                             
 
-                        </tbody>
+                        }
+                        
 
-                    </table>
+                    ?>
+
                 </div>
                 
             </div>
         </div>
+        <br>
+        <br>
+        <br>
         <div class="footer">
         <div class="section"> 
             <div class="content">

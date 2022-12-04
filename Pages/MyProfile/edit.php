@@ -92,6 +92,14 @@
       transform: translate(-50%, -50%);
      
     }
+    .container{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%);
+     
+    }
     .box
     {
         width: 600px;
@@ -209,19 +217,6 @@
                     <p id="text1"> Enter your rate </p>
                      <?php
                         
-                        /*if(mysqli_num_rows($result)>0){
-                            foreach($result as $row){
-                                $objectName=$row['name'];
-                                ?> 
-                                <h3> <? echo$objectName;?></h3>
-                                <?php
-
-                            }
-                            
-                        }
-                        else{
-                            echo"erorr";
-                        }*/
                         
                      
                      ?>

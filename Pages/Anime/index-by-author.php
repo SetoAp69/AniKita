@@ -1,16 +1,18 @@
+
 <?php 
 session_start();
 include("../../login-signup/connection.php");
 include("../../login-signup/functions.php");
 
 
+
 $user_data =check_login($con);
-$dataLimit = 10;
-$username = $_SESSION['user_name'];
-$totalData = 0;
-$totalPage = 0;
-$activePage = (isset($_GET["page"])) ? $_GET["page"] : 1;
-$firstData = ($dataLimit) * ($activePage - 1);
+if(isset($_GET['id'])){
+    $author_id = $_GET['id'];
+}
+$author_id1 = $author_id;
+$author_id = $author_id1;
+
 ?>
 <!DOCTYPE html>
 <style>
@@ -208,91 +210,101 @@ $firstData = ($dataLimit) * ($activePage - 1);
     .ref{
         color: white;
     }
-    .pageNav{
-        padding: 6px;
-        background-color: hotpink;
-        float:left;
-        margin-left:5px;
-        color:white;
-        text-decoration: none;
-
-    }
-    .pageNav :hover{
-        background-color:grey;
-    }
-    #active{
-        background-color: cornflowerblue;
-    }
-    .pageNav-Container{
-        float:right;
-    }
 </style>
 <html>
     <title> </title>
-    <head> </head>
+    <head> 
+        <!-- Bootstrap CSS -->
+<!-- Bootstrap DataTables CSS -->
+<!-- Jquery -->
+<script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<!-- Jquery DataTables -->
+<script type="text/javascript" language="javascript" src="http:////cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+<!-- Bootstrap dataTables Javascript -->
+<script type="text/javascript" language="javascript" src="http://cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+	$('#anime-table').dataTable();
+ } );
+</script>
+    </head>
     <body>
         <div class="topnavigation">
             <a href="../Dashboard/index.php">Home</a>
             <a href="../MyProfile/index.php" >Profile</a>
-            <a href="../Anime/index.php"> Anime</a>
+            <a class="active"  href="index.php"> Anime</a>
             <a href="../Manga/index.php">Manga</a>
-            <a class="active"   href="../Drama/index.php">Drama</a>
+            <a href="../Drama/index.php">Drama</a>
             
             <div style="float: right;">
                 <a href="../../login-signup/logout.php">Logout</a>
             </div>
         </div>
         <div style="padding-left: 5%; font-size:35px;">
-        Drama Recommendation
-    </div>
-    <div class="container">
-        <div class="box">
-            <img class="image" src="../../Object/3/OB011/Poster.jpg" alt="">
-            <div class="content"> 
-                <h3>Unnatural</h3>
-                <p>bla bla bla</p>
-                <a href="../../Object/3/OB011/index.php" style="color: white">Read More</a>
-            </div>
+            Anime Recommendation
+        </div>
+        <div class="container">
+            <div class="box">
+                
+                    <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB001/One-piece-Poster.jpg" alt="">
+                    <div class="content"> 
+                        <h3>One Piece</h3>
+                        <p> bla bla bla </p>
+                        <a  href=" login.php" style="color: white;">Read More</a>
+
+                    </div>
+                
             
-            
-        </div>
-        <div class="box">
-            <img class="image" src="../../Object/3/OB012/Poster.jpg" alt="">
-            <div class="content"> 
-                <h3>3 Nen A Gumi: Ima kara Mina-san wa, Hitojichi Desu</h3>
-                <p>bla bla bla</p>
-                <a href="../../Object/3/OB012/index.php" style="color: white">Read More</a>
             </div>
+            <div class="box">
+                            
+                    <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB002/Poster.jpg" alt="">
+                    <div class="content"> 
+                        <h3>Jujutsu Kaisen</h3>
+                        <p> bla bla bla </p>
+                        <a  href=" login.php" style="color: white;">Read More</a>
+
+                    </div>
                 
-        </div>
-        <div class="box">
-            <img class="image" src="../../Object/3/OB013/Poster.jpg" alt="">
-            <div class="content"> 
-                <h3>Mother</h3>
-                <p>bla bla bla</p>
-                <a href="../../Object/3/OB013/index.php" style="color: white">Read More</a>
+
             </div>
-                
-        </div>
-        <div class="box">
-            <img class="image" src="../../Object/3/OB014/Poster.jpg" alt="">
-            <div class="content"> 
-                <h3>Soredemo Ikite Yuku</h3>
-                <p>bla bla bla</p>
-                <a href="../../Object/3/OB014/index.php" style="color: white">Read More</a>
+            <div class="box">
+                            
+            <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB003/Poster.jpg" alt="">
+                    <div class="content"> 
+                        <h3>Tenki No Ko</h3>
+                        <p> bla bla bla </p>
+                        <a  href=" login.php" style="color: white;">Read More</a>
+
+                    </div>
+
             </div>
-                
-        </div>
-        <div class="box">
-            <img class="image" src="../../Object/3/OB015/Poster.jpg" alt="">
-            <div class="content"> 
-                <h3>Juhan Shuttai!</h3>
-                <p>bla bla bla</p>
-                <a href="../../Object/3/OB015/index.php" style="color: white">Read More</a>
+            <div class="box">
+                            
+                    <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB004/Poster.jpg" alt="">
+                    <div class="content"> 
+                        <h3>Neon Genesis Evangelion</h3>
+                        <p> bla bla bla </p>
+                        <a  href=" login.php" style="color: white;">Read More</a>
+
+                    </div>
+
             </div>
-                
+            <div class="box">
+                            
+            <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB005/Poster.jpg" alt="">
+                    <div class="content"> 
+                        <h3>Kimi No Nawa</h3>
+                        <p> bla bla bla </p>
+                        <a  href=" login.php" style="color: white;">Read More</a>
+
+                    </div>
+
+            </div>
+
+
         </div>
-    </div>
+
         <div class="searchBarContainer">
             <form action="" method="GET" class="searchBar" >
                 <div class="searchBar">
@@ -305,6 +317,8 @@ $firstData = ($dataLimit) * ($activePage - 1);
             
         </div>
         <br>  <br><br>  <br><br>  <br>  <br>
+
+
         <div>
             <div>
                 <div>
@@ -319,7 +333,7 @@ $firstData = ($dataLimit) * ($activePage - 1);
                             <tr>
                                 <th>ID</th>
                                 <th> Name </th>
-                                <th> Director </th>
+                                <th> Studio </th>
                                 <th> Average Rating </th>
                                 <th>Total Rate Count</th>
                                 
@@ -331,18 +345,6 @@ $firstData = ($dataLimit) * ($activePage - 1);
                             if(isset($_GET['search']))
                             {
                                 $filtervalues=$_GET['search'];
-                                $totalSearchData = mysqli_query($con,"SELECT object.name 'name', object.type_id 't_id', author.author_id,
-                                object.object_id 'id', author.name 'Studio',  ROUND(AVG(rating_table.rate),2) 'avg_rate',
-                                 COUNT(rating_table.rate) 'rate_count'
-                                FROM 
-                                author JOIN object USING(author_id)
-                                LEFT JOIN 
-                                rating_table USING(object_id) 
-                                WHERE object.type_id='3' AND object.name LIKE '%$filtervalues%'
-                                GROUP BY (object.object_id) ORDER BY object_id");
-
-                                
-
                                 $searchQuery="SELECT object.name 'name', object.type_id 't_id', author.author_id,
                                 object.object_id 'id', author.name 'Studio',  ROUND(AVG(rating_table.rate),2) 'avg_rate',
                                  COUNT(rating_table.rate) 'rate_count'
@@ -350,13 +352,10 @@ $firstData = ($dataLimit) * ($activePage - 1);
                                 author JOIN object USING(author_id)
                                 LEFT JOIN 
                                 rating_table USING(object_id) 
-                                WHERE object.type_id='3' AND object.name LIKE '%$filtervalues%'
-                                GROUP BY (object.object_id) ORDER BY object_id LIMIT $firstData,$dataLimit";
-
+                                WHERE object.type_id='1' AND object.name LIKE '%$filtervalues%' 
+                                AND author.author_id='$author_id'
+                                GROUP BY (object.object_id) ORDER BY object_id";
                                 $searchResult=mysqli_query($con,$searchQuery);
-
-                                $totalData = mysqli_num_rows($totalSearchData);
-                                $totalPage = ceil($totalData / $dataLimit);
 
                                 if(mysqli_num_rows($searchResult)>0){
                                     foreach ($searchResult as $rows) {
@@ -392,19 +391,16 @@ $firstData = ($dataLimit) * ($activePage - 1);
                             else{
                                 //display all data
                                 ?> <?php 
-                                $queryx="SELECT* FROM object where type_id='3' ";
-                                $result=mysqli_query($con,$queryx);
-                                $totalData = mysqli_num_rows($result);
-                                $totalPage = ceil($totalData / $dataLimit);
                                 $query1="SELECT object.name 'name', object.type_id 't_id' ,object.object_id 'id', 
-                                author.name 'Director',  author.author_id,
+                                author.name 'Studio',  author.author_id,
                                 ROUND(AVG(rating_table.rate),2) 'avg_rate', COUNT(rating_table.rate) 'rate_count'
                                 FROM 
                                 author JOIN object USING(author_id)
                                 LEFT JOIN 
                                 rating_table USING(object_id) 
-                                WHERE object.type_id='3'
-                                GROUP BY (object.object_id) LIMIT $firstData, $dataLimit ";
+                                WHERE object.type_id='1' AND
+                                author.author_id='$author_id'
+                                GROUP BY (object.object_id) ";
                                 $result=mysqli_query($con,$query1);
 
                                 if(mysqli_num_rows($result)>0){
@@ -419,7 +415,7 @@ $firstData = ($dataLimit) * ($activePage - 1);
                                             </td>
                                             <td>
                                                  <a style="color: black; font-weight: bold; " href="index-by-author.php? id=<?=$rows['author_id'];?>"> 
-                                                 <?=$rows['Director'];?> 
+                                                 <?=$rows['Studio'];?> 
                                                 </a> 
                                             </td>
                                             <td><?=$rows['avg_rate'];?> </td>
@@ -457,59 +453,11 @@ $firstData = ($dataLimit) * ($activePage - 1);
                         </tbody>
 
                     </table>
-                    <br>
-                    
-
                 </div>
-                <div class="pageNav-Container">
-                <?php
-                        for ($i = 1; $i <= $totalPage;$i++) {
-                            if($i==$activePage){
-                                if(isset($_GET['search'])){
-                                    $filtervalues = $_GET['search'];
-                                    ?>
-                                    <a class="pageNav" id="active"  href="?page=<?= $i; ?>&search=<?=$filtervalues;?>"> <?=$i;?></a>
-                                    <?php
-                                    
-    
-                                }
-                                else{
-                                    ?>
-                                    <a class="pageNav" id="active" href="?page=<?=$i;?>"><?= $i;?></a>
-    
-                                    <?php
-                                }
-
-                            }
-                            else{
-                                if(isset($_GET['search'])){
-                                    $filtervalues = $_GET['search'];
-                                    ?>
-                                    <a class="pageNav" href="?page=<?= $i; ?>&search=<?=$filtervalues;?>"> <?=$i;?></a>
-                                    <?php
-                                    
-    
-                                }
-                                else{
-                                    ?>
-                                    <a class="pageNav" href="?page=<?=$i;?>"><?= $i;?></a>
-    
-                                    <?php
-                                }
-
-                            }
-                            
-
-                        }
-                        
-
-                    ?>
-
-                </div>
-
                 
             </div>
         </div>
+
         <br>
         <br>
 
@@ -517,7 +465,7 @@ $firstData = ($dataLimit) * ($activePage - 1);
 
 
         <br>  <br><br>  <br><br>  <br><br>  <br>
-        <br>  <br><br> 
+        <br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br>
         <div class="footer">
         <div class="section"> 
             <div class="content">
@@ -563,3 +511,16 @@ $firstData = ($dataLimit) * ($activePage - 1);
     </div>
     </body>
 </html>
+
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script> 
+$(document).ready(function () {
+    $('#anime-table').dataTable( {
+        "pagingType": "full_numbers"
+    } );
+    $.fn.DataTable.ext.pager.numbers_length = 9;
+});
+
+
+</script>

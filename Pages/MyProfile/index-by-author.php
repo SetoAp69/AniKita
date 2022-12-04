@@ -1,14 +1,34 @@
 <?php 
+
+?>
+<style> 
+</style>
+
+<!DOCTYPE html>
+<html> 
+<?php 
 session_start();
 include("../../login-signup/connection.php");
 include("../../login-signup/functions.php");
 
 
 $user_data =check_login($con);
+$username=$_SESSION["user_name"];
+$query ="SELECT name FROM user WHERE username='$username' LIMIT 1";
+$result=mysqli_query($con,$query);
+
+$name=mysqli_fetch_assoc($result); 
+if(isset($_GET['id'])){
+    $author_id = $_GET['id'];
+}
+else{
+    echo "error";
+}
+
 ?>
 <!DOCTYPE html>
 <style>
-    body{
+        body{
         margin : 0
         
     }
@@ -34,59 +54,9 @@ $user_data =check_login($con);
         background-color: hotpink;
         color:white;
     }
-    .container{
-        position: relative;
-        width: 1200px;
-        height: 325px;
-        margin-left: 5%; auto;
-        background: lightslategray;
-    }
-    .container .box{
-        position: relative;
-        width: calc(240px - 30px);
-        height: calc(320px - 30px);
-        background: black;
-        float: left;
-        margin: 15px;
-        box-sizing: border-box;
-        overflow: hidden;
-        border-radius:5px;
-    }
-    .container .box .image{
-        position: absolute;
-        background: lightslategray;
-        transition: 0.5s;
-        z-index: 0;
-        width:210px ;
-        height:290px;
-    }
-    .container .box:hover .image{
-
-        opacity: 0.4;
-        
-
-    }
-    .container .box  .content{
-        position: absolute;
-        top: 230px;
-        height: calc(100%-100px);
-        text-align: Center;
-        padding: 20%;
-        box-sizing: border-box;
-        transition: 0.5s;
-
-    }
-    .container .box:hover .content{
-        top: 50px;
-        transition: 1.5s;
-        color: white;
-
-    }
     .footer{
         position: relative;
-        float:bottom;
         bottom: 0px;
-        
         width: 100%;
         height: 180px;
         background: cornflowerblue;
@@ -111,6 +81,77 @@ $user_data =check_login($con);
     .footer .section .content .icon{
         width: 40px;
         height: 30px;
+    }
+    .profile{
+        
+        background: white;
+        width: 98%;
+        height: 250px;
+        margin: 10px;
+    }
+    .profile .content{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        
+    }
+    .profile .content .pp{
+        
+    
+        background: gray;
+        float:left;
+        height: 200px;
+        width: 150px;
+        margin: 20px;
+        
+
+    }
+    .profile .content .bio{
+        float: left;
+        height: 100%;
+        width: 60%;
+        top: 50px;
+        margin-left: 30px;
+        
+        background: white;
+    }
+    #par{
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: black;
+        
+    }
+    #border{
+        width: 95%;
+        height:1px;
+        background: cornflowerblue;
+        margin-left: 35px;
+        
+    }
+    .objectButtonContainer{
+        
+        width: 400px;
+        height: 80px;
+        float: right;
+        margin-right: 2%;
+        margin-top: 20px;
+
+    }
+    .objectButtonContainer .objectButton{
+        background-color: cornflowerblue;
+        height: 70px;
+        width: 70px;
+        margin: 5px ;
+        float:left;
+        border-radius: 100%;
+        display: flex; 
+        justify-content: center;
+    }
+    .objectButtonContainer .objectButton:hover{
+        background-color:lightseagreen;
+        
+    }
+    #active{
+        background-color: hotpink;
     }
     table{
         table-layout: fixed;
@@ -202,6 +243,9 @@ $user_data =check_login($con);
     .ref{
         color: white;
     }
+    
+
+
 </style>
 <html>
     <title> </title>
@@ -209,8 +253,8 @@ $user_data =check_login($con);
     <body>
         <div class="topnavigation">
             <a href="../Dashboard/index.php">Home</a>
-            <a href="../MyProfile/index.php" >Profile</a>
-            <a class="active"  href="index.php"> Anime</a>
+            <a class="active" href="index.php" >Profile</a>
+            <a href="../Anime/index.php"> Anime</a>
             <a href="../Manga/index.php">Manga</a>
             <a href="../Drama/index.php">Drama</a>
             
@@ -218,71 +262,46 @@ $user_data =check_login($con);
                 <a href="../../login-signup/logout.php">Logout</a>
             </div>
         </div>
-        <div style="padding-left: 5%; font-size:35px;">
-            Anime Recommendation
-        </div>
-        <div class="container">
-            <div class="box">
-                
-                    <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB001/One-piece-Poster.jpg" alt="">
-                    <div class="content"> 
-                        <h3>One Piece</h3>
-                        <p> bla bla bla </p>
-                        <a  href=" login.php" style="color: white;">Read More</a>
+        <div class="profile">
+            <div class="content">
+                <div class="pp">
 
-                    </div>
+                </div>
+                <div id="par" class="bio"> 
+                    <h2 > <?php echo $name['name']?></h2>
+                    <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eveniet provident obcaecati, dolores inventore rerum tempora hic! Nostrum exercitationem incidunt est, aperiam voluptatum ipsa obcaecati explicabo id cum? Optio, inventore iste!</p>
+                </div>
                 
+            </div>
             
-            </div>
-            <div class="box">
-                            
-                    <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB002/Poster.jpg" alt="">
-                    <div class="content"> 
-                        <h3>Jujutsu Kaisen</h3>
-                        <p> bla bla bla </p>
-                        <a  href=" login.php" style="color: white;">Read More</a>
+        </div>
+        <div id="border">
 
-                    </div>
+        </div>
+        <div class="objectButtonContainer">
+                <div class="objectButton">
+                    <a href="index.php"> <img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/AllObjectButton.png" alt=""> </a>
+                    
                 
-
-            </div>
-            <div class="box">
-                            
-            <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB003/Poster.jpg" alt="">
-                    <div class="content"> 
-                        <h3>Tenki No Ko</h3>
-                        <p> bla bla bla </p>
-                        <a  href=" login.php" style="color: white;">Read More</a>
-
-                    </div>
-
-            </div>
-            <div class="box">
-                            
-                    <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB004/Poster.jpg" alt="">
-                    <div class="content"> 
-                        <h3>Neon Genesis Evangelion</h3>
-                        <p> bla bla bla </p>
-                        <a  href=" login.php" style="color: white;">Read More</a>
-
-                    </div>
-
-            </div>
-            <div class="box">
-                            
-            <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB005/Poster.jpg" alt="">
-                    <div class="content"> 
-                        <h3>Kimi No Nawa</h3>
-                        <p> bla bla bla </p>
-                        <a  href=" login.php" style="color: white;">Read More</a>
-
-                    </div>
-
-            </div>
+                </div>            
+                <div class="objectButton">
+                    <a href="index-a.php"><img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/AnimeButton.png" alt=""> </a>
+                    
+                
+                </div>            
+                <div class="objectButton">
+                    <a href="index-m.php"><img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/MangaButton.png" alt=""></a>
+                    
+                
+                </div>
+                <div class="objectButton">
+                    <a href="index-d.php"> <img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/DramaButton.png" alt=""></a>
+                    
+                
+                </div>
 
 
         </div>
-
         <div class="searchBarContainer">
             <form action="" method="GET" class="searchBar" >
                 <div class="searchBar">
@@ -294,27 +313,25 @@ $user_data =check_login($con);
             </form>
             
         </div>
-        <br>  <br><br>  <br><br>  <br>  <br>
-
+        <br>  <br><br>  <br><br>  <br><br>  <br>
+        
 
         <div>
             <div>
                 <div>
                     <table>
                         <thead>
-                                <col width="5%"  />
+                                <col width="10%"  />
                                 <col width="30%"/>
+                                <col width="5%"/>
                                 <col width="20%"/>
-                                <col width="10%"/>
-                                <col width="10%"/>
-                                <col width="25%"/>
+                                <col width="15%"/>
                             <tr>
                                 <th>ID</th>
                                 <th> Name </th>
-                                <th> Studio </th>
-                                <th> Average Rating </th>
-                                <th>Total Rate Count</th>
-                                
+                                <th> Type </th>
+                                <th> Author </th>
+                                <th> Your rate </th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -323,13 +340,11 @@ $user_data =check_login($con);
                             if(isset($_GET['search']))
                             {
                                 $filtervalues=$_GET['search'];
-                                $searchQuery="SELECT object.name 'name', object.object_id 'id', author.name 'studio',  AVG(rating_table.rate) 'avg_rate', COUNT(rating_table.rate) 'rate_count'
-                                FROM 
-                                author JOIN object USING(author_id)
-                                LEFT JOIN 
-                                rating_table USING(object_id) 
-                                WHERE object.type_id='1'
-                                GROUP BY (object.object_id) ";
+                                $searchQuery="SELECT o.object_id 'id', o.name, t.name 'type', a.name 'author', r.rate, t.type_id 't_id' 
+                                FROM user u, object o, author a, type_of_object t, rating_table r 
+                                WHERE u.username='$username' AND o.object_id=r.object_id 
+                                AND t.type_id=o.type_id AND a.author_id=o.author_id AND u.username=r.username AND author_id='$author_id' AND o.name  
+                                LIKE'%$filtervalues%' ORDER BY o.object_id";
                                 $searchResult=mysqli_query($con,$searchQuery);
 
                                 if(mysqli_num_rows($searchResult)>0){
@@ -337,10 +352,14 @@ $user_data =check_login($con);
                                         ?>
                                         <tr>
                                             <td><?=$rows['id'];?> </td>
-                                            <td> <a style="color: black; font-weight: bold;" href="../../Object/<?=$rows['t_id'];?>/<?=$rows['id'];?>/index.php"> <?=$rows['name'];?> </a>  </td>
-                                            <td><?=$rows['Studio'];?> </td>
-                                            <td><?=$rows['avg_rate'];?> </td>
-                                            <td><?=$rows['rate_count'];?> </td>
+                                            <td> 
+                                                <a style="color: black; font-weight: bold;" href="../../Object/<?=$rows['t_id'];?>/<?=$rows['id'];?>/index.php"> 
+                                                 <?=$rows['name'];?> 
+                                                </a>  
+                                            </td>
+                                            <td><?=$rows['type'];?> </td>
+                                            <td><?=$rows['author'];?> </td>
+                                            <td><?=$rows['rate'];?> </td>
                                             <td class="table-btn-col">
                                                 <div class="table-btn">
                                                     <a class="ref" href="edit.php? id=<?=$rows['id'];?>">edit </a> 
@@ -351,12 +370,8 @@ $user_data =check_login($con);
                                                     <a class="ref" href="delete.php? id=<?=$rows['id'];?>"> delete</a>
 
                                                 </div>
-                                                
-                                                
-                                                
                                             </td>
                                         </tr>
-
                                         <?php
                                     }
 
@@ -364,14 +379,12 @@ $user_data =check_login($con);
 
                             }
                             else{
+                                //diplay all data
                                 ?> <?php 
-                                $query1="SELECT object.name 'name', object.object_id 'id', author.name 'studio',  AVG(rating_table.rate) 'avg_rate', COUNT(rating_table.rate) 'rate_count'
-                                FROM 
-                                author JOIN object USING(author_id)
-                                LEFT JOIN 
-                                rating_table USING(object_id) 
-                                WHERE object.type_id='1'
-                                GROUP BY (object.object_id) ";
+                                $query1="SELECT o.object_id 'id', o.name, t.name 'type', a.name 'author', r.rate ,t.type_id 't_id'
+                                        FROM user u, object o, author a, type_of_object t, rating_table r 
+                                        WHERE u.username='$username' AND o.object_id=r.object_id AND t.type_id=o.type_id 
+                                        AND a.author_id=o.author_id AND u.username=r.username AND a.author_id='$author_id' ORDER BY o.object_id";
                                 $result=mysqli_query($con,$query1);
 
                                 if(mysqli_num_rows($result)>0){
@@ -379,10 +392,14 @@ $user_data =check_login($con);
                                         ?>
                                         <tr>
                                             <td><?=$rows['id'];?> </td>
-                                            <td> <a style="color: black; font-weight: bold;" href="../../Object/<?=$rows['t_id'];?>/<?=$rows['id'];?>/index.php"> <?=$rows['name'];?> </a>  </td>
-                                            <td><?=$rows['Studio'];?> </td>
-                                            <td><?=$rows['avg_rate'];?> </td>
-                                            <td><?=$rows['rate_count'];?> </td>
+                                            <td> 
+                                                <a style="color: black; font-weight: bold;" href="../../Object/<?=$rows['t_id'];?>/<?=$rows['id'];?>/index.php"> 
+                                                 <?=$rows['name'];?> 
+                                                </a>  
+                                            </td>
+                                            <td><?=$rows['type'];?> </td>
+                                            <td><?=$rows['author'];?> </td>
+                                            <td><?=$rows['rate'];?> </td>
                                             <td class="table-btn-col">
                                                 <div class="table-btn">
                                                     <a class="ref" href="edit.php? id=<?=$rows['id'];?>">edit </a> 
@@ -393,9 +410,6 @@ $user_data =check_login($con);
                                                     <a class="ref" href="delete.php? id=<?=$rows['id'];?>"> delete</a>
 
                                                 </div>
-                                                
-                                                
-                                                
                                             </td>
                                         </tr>
 
@@ -404,35 +418,16 @@ $user_data =check_login($con);
                                     }
                                 }
 
-
-
-
-                                
-
                                 ?>
                                 <?php
                             }
-
-
                             ?>
-                            
-
                         </tbody>
-
                     </table>
                 </div>
                 
             </div>
         </div>
-
-        <br>
-        <br>
-
-
-
-
-        <br>  <br><br>  <br><br>  <br><br>  <br>
-        <br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br>
         <div class="footer">
         <div class="section"> 
             <div class="content">
@@ -456,8 +451,9 @@ $user_data =check_login($con);
                 <h3>Follow Us on </h3>
             </div>
         </div>
+
         
-        
+
 
         <div class="section">
             <div class="content">
@@ -476,5 +472,27 @@ $user_data =check_login($con);
             </div>
         </div>
     </div>
+    
+    <script>
+        function openForm(){
+            
+            document.getElementById("rate_form").style.display="block";
+            
+        }
+        function closeFrom(){
+            document.getElementById("rate_form").style.display="none";
+        }
+        function getID($rowsid){
+            $id=$rowsid;
+        }
+        //window.location.reload(true);
+        window.onload = function() {
+            if(!window.location.hash) {
+                window.location = window.location + '#loaded';
+                window.location.reload();
+            }
+        }
+    </script>
     </body>
+</html>
 </html>

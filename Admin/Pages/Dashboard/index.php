@@ -4,6 +4,12 @@
     include("../../../login-signup/functions.php");
 
     $query="SELECT* FROM OBJECT";
+    $dataLimit = 10;
+    $totalData = 0;
+    $totalPage = 0;
+    $activePage = (isset($_GET["page"])) ? $_GET["page"] : 1;
+    $firstData = ($dataLimit) * ($activePage - 1);
+
 
 
 ?>
@@ -202,6 +208,50 @@ body{
     .ref{
         color: white;
     }
+    .objectButtonContainer{
+        
+        width: 400px;
+        height: 80px;
+        float: right;
+        margin-right: 2%;
+        margin-top: 20px;
+
+    }
+    .objectButtonContainer .objectButton{
+        background-color: cornflowerblue;
+        height: 70px;
+        width: 70px;
+        margin: 5px ;
+        float:left;
+        border-radius: 100%;
+        display: flex; 
+        justify-content: center;
+    }
+    .objectButtonContainer .objectButton:hover{
+        background-color:lightseagreen;
+        
+    }
+    #active{
+        background-color: hotpink;
+    }
+    .pageNav{
+        padding: 6px;
+        background-color: hotpink;
+        float:left;
+        margin-left:5px;
+        color:white;
+        text-decoration: none;
+
+    }
+    .pageNav :hover{
+        background-color:grey;
+    }
+    #active2{
+        background-color: cornflowerblue;
+    }
+    .pageNav-Container{
+        float:right;
+    }
 </style>
 
 <!DOCTYPE html>
@@ -214,12 +264,8 @@ body{
     </head>
     <body>
     <div class="topnavigation">
-            <a href="../Dashboard/index.php">Home</a>
-            <a href="../MyProfile/index.php" >Profile</a>
-            <a class="active"  href="index.php"> Anime</a>
-            <a href="../Manga/index.php">Manga</a>
-            <a href="../Drama/index.php">Drama</a>
-            
+            <a class="active"href="../Dashboard/index.php">Object</a>
+            <a href="../author/index-author.php" >Author</a>
             <div style="float: right;">
                 <a href="../../../login-signup/logout.php">Logout</a>
             </div>
@@ -227,6 +273,42 @@ body{
 
         <br>
         <br>
+
+        <div class="objectButtonContainer">
+                <div class="objectButton">
+                    <a href="index.php"> <img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/AllObjectButton.png" alt=""> </a>
+                  
+                </div>            
+                <div class="objectButton">
+                    <a href="index-a.php"><img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/AnimeButton.png" alt=""> </a>
+                
+                </div>            
+                <div class="objectButton">
+                    <a href="index-m.php"><img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/MangaButton.png" alt=""></a>
+                 
+                </div>
+                <div class="objectButton">
+                    <a href="index-d.php"> <img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/DramaButton.png" alt=""></a>
+                
+                </div>
+                <div class="objectButton">
+                    <a href="add.php"> <img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/DramaButton.png" alt=""></a>
+                 
+                </div>
+        </div>
+        <div class="searchBarContainer">
+            <form action="" method="GET" class="searchBar" >
+                <div class="searchBar">
+
+                    <input type="text" name='search' value="<?php if(isset($_GET['search']) ){echo $_GET['search'];}?>" class="form-control" placeholder="Search">
+                    <button type="submit" class="searchButton">Search</button>
+                </div>  
+
+            </form>
+            
+        </div>
+        <br> <br> <br> <br>
+        <br> <br> <br> <br>
         <div>
             <div>
                 <div>
@@ -234,17 +316,18 @@ body{
                         <thead>
                                 <col width="5%"  />
                                 <col width="30%"/>
+                                <col width="5%"/>
+                                <col width="10%"/>
+                                <col width="5%"/>
                                 <col width="25%"/>
-                                <col width="15%"/>
-                                
-                                <col width="25%"/>
+                                <col width="20%"/>
                             <tr>
                                 <th>ID</th>
                                 <th> Name </th>
+                                <th> Type ID</th>
                                 <th> Type </th>
+                                <th> Author ID</th>
                                 <th> Author </th>
-                                
-                                
                                 <th></th>
                             </tr>
                         </thead>
@@ -253,8 +336,18 @@ body{
                             if(isset($_GET['search']))
                             {
                                 $filtervalues=$_GET['search'];
-                                $searchQuery="SELECT* FROM OBJECT WHERE object_id LIKE '$filtervalues' ";
+
+                                $totalSearchData = mysqli_query($con, "SELECT* from object WHERE name LIKE'%$filtervalues%'");
+
+
+                                $searchQuery="SELECT object.object_id 'object_id', object.name 'name',type_of_object.type_id 'type_id',
+                                type_of_object.name 'type', author.author_id 'author_id', author.name 'author'
+                                FROM  OBJECT JOIN author USING(author_id) 
+                                JOIN type_of_object USING(type_id)  WHERE object.name LIKE '%$filtervalues%' LIMIT $firstData,$dataLimit";
                                 $searchResult=mysqli_query($con,$searchQuery);
+
+                                $totalData = mysqli_num_rows($totalSearchData);
+                                $totalPage = ceil($totalData / $dataLimit);
 
                                 if(mysqli_num_rows($searchResult)>0){
                                     foreach ($searchResult as $rows) {
@@ -263,34 +356,33 @@ body{
                                             <td><?=$rows['object_id'];?> </td>
                                             <td>  <?=$rows['name'];?> </td>
                                             <td><?=$rows['type_id'];?> </td>
+                                            <td><?=$rows['type'];?> </td>
                                             <td><?=$rows['author_id'];?> </td>
+                                            <td><?=$rows['author'];?> </td>
                             
                                             <td class="table-btn-col">
                                                 <div class="add-btn">
                                                     <a class="ref" href="delete.php? id=<?=$rows['object_id'];?>">Delete </a> 
-                                                    
-                                                
                                                 </div>
                                                 <div class="add-btn">
-                                                    <a class="ref" href="delete.php? id=<?=$rows['object_id'];?>">Edit </a> 
-                                                    
-                                                
+                                                    <a class="ref" href="edit.php? id=<?=$rows['object_id'];?>">Edit </a> 
                                                 </div>
-                                                
-                                
-                                                
                                             </td>
                                         </tr>
-
                                         <?php
                                     }
-
                                 }
-
                             }
                             else{
                                 ?> <?php 
-                                $query1="SELECT * FROM object";
+                                $queryx="SELECT* FROM object  ";
+                                $result=mysqli_query($con,$queryx);
+                                $totalData = mysqli_num_rows($result);
+                                $totalPage = ceil($totalData / $dataLimit);
+                                $query1="SELECT object.object_id 'object_id', object.name 'name',type_of_object.type_id 'type_id',
+                                type_of_object.name 'type', author.author_id 'author_id', author.name 'author'
+                                FROM  OBJECT JOIN author USING(author_id) 
+                                JOIN type_of_object USING(type_id) ORDER BY object.object_id LIMIT $firstData,$dataLimit;";
                                 $result=mysqli_query($con,$query1);
 
                                 if(mysqli_num_rows($result)>0){
@@ -300,47 +392,75 @@ body{
                                             <td><?=$rows['object_id'];?> </td>
                                             <td>  <?=$rows['name'];?> </td>
                                             <td><?=$rows['type_id'];?> </td>
+                                            <td><?=$rows['type'];?> </td>
                                             <td><?=$rows['author_id'];?> </td>
+                                            <td><?=$rows['author'];?> </td>
                             
                                             <td class="table-btn-col">
                                                 <div class="add-btn">
                                                     <a class="ref" href="delete.php? id=<?=$rows['object_id'];?>">Delete </a> 
-                                                    
-                                                
-                                                </div>
+                                                </div>    
                                                 <div class="add-btn">
-                                                    <a class="ref" href="delete.php? id=<?=$rows['object_id'];?>">Edit </a> 
-                                                    
-                                                
+                                                    <a class="ref" href="edit.php? id=<?=$rows['object_id'];?>">Edit </a> 
                                                 </div>
-                                                
-                                
-                                                
                                             </td>
                                         </tr>
-
                                         <?php
-
                                     }
                                 }
-
-
-
-
-                                
-
                                 ?>
                                 <?php
                             }
-
-
                             ?>
-                            
-
                         </tbody>
-
                     </table>
                 </div>
+
+                <div class="pageNav-Container">
+                <?php
+                        for ($i = 1; $i <= $totalPage;$i++) {
+                            if($i==$activePage){
+                                if(isset($_GET['search'])){
+                                    $filtervalues = $_GET['search'];
+                                    ?>
+                                    <a class="pageNav" id="active2"  href="?page=<?= $i; ?>&search=<?=$filtervalues;?>"> <?=$i;?></a>
+                                    <?php
+    
+                                }
+                                else{
+                                    ?>
+                                    <a class="pageNav" id="active2" href="?page=<?=$i;?>"><?= $i;?></a>
+    
+                                    <?php
+                                }
+
+                            }
+                            else{
+                                if(isset($_GET['search'])){
+                                    $filtervalues = $_GET['search'];
+                                    ?>
+                                    <a class="pageNav" href="?page=<?= $i; ?>&search=<?=$filtervalues;?>"> <?=$i;?></a>
+                                    <?php
+                                    
+    
+                                }
+                                else{
+                                    ?>
+                                    <a class="pageNav" href="?page=<?=$i;?>"><?= $i;?></a>
+    
+                                    <?php
+                                }
+
+                            }
+                            
+
+                        }
+                        
+
+                    ?>
+
+                </div>
+
                 
             </div>
         </div>

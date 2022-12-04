@@ -23,6 +23,16 @@ include("../../../login-signup/functions.php");
                 
 
             }
+            #back-btn{
+                padding: 10px;
+                background-color:hotpink;
+                float:right;
+                margin-left: 10px;
+                color: white;
+                text-decoration: none;
+
+            }
+            
 
             #box{
                 background-color: cornflowerblue;
@@ -57,7 +67,7 @@ include("../../../login-signup/functions.php");
                 <label for="author"> Author </label> <br>
                 <select name="author_id" id="author_id"> 
                 <?php 
-                    $queryAuthor="SELECT* FROM author";
+                    $queryAuthor="SELECT* FROM author ORDER BY name";
                     $result=mysqli_query($con,$queryAuthor);
                     if(mysqli_num_rows($result)>0){
                         foreach($result as $rows){
@@ -73,14 +83,11 @@ include("../../../login-signup/functions.php");
                 
                 ?>
                 </select>
-
-
-                
                 <br> <br>
                 <input id="button" type="submit" value="Submit ">
+                <a href="index.php" id="back-btn"> Back </a>
                 <br>
                 <br>
-
                 <?php 
                     if($_SERVER['REQUEST_METHOD']=="POST"){
                         $object_id=$_POST['object_id'];

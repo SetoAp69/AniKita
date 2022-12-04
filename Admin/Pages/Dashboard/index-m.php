@@ -2,14 +2,14 @@
     session_start();
     include("../../../login-signup/connection.php");
     include("../../../login-signup/functions.php");
+
+    $query="SELECT* FROM OBJECT";
     $dataLimit = 10;
     $totalData = 0;
     $totalPage = 0;
     $activePage = (isset($_GET["page"])) ? $_GET["page"] : 1;
     $firstData = ($dataLimit) * ($activePage - 1);
 
-
-    
 
 
 ?>
@@ -152,10 +152,12 @@ body{
         display: none;
     }
     .searchBarContainer{
-        width: 50%;
+        
+        width: 600px;
         height: 80px;
-        margin: 0 auto;
-        background: None;
+        float: right;
+        margin-right: 2%;
+        margin-top: 20px;
 
 
     }
@@ -169,27 +171,15 @@ body{
         background-color: lightgray;
         border: none;
         line-height: 40px;
-        width: 60%;
+        width: 450px;
         border-radius: 5px;
     }
     .searchButton{
-        width: 15%;
         height:40px;
         background-color: hotpink;
         color: white;
         border: none;
         border-radius: 5px;
-
-    }
-    #pink-btn{
-        text-align: center;
-        width:15%;
-        height:40px;
-        background-color: hotpink;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        margin-right: 5px;
 
     }
     .table-btn-col{
@@ -199,7 +189,7 @@ body{
 
     }
     .add-btn{
-        margin-left: 14%;
+        margin-left: 18%;
         text-align: center;
         background-color: cornflowerblue;
         width: 50px;
@@ -274,8 +264,8 @@ body{
     </head>
     <body>
     <div class="topnavigation">
-            <a href="../Dashboard/index.php">Object</a>
-            <a class="active" href="../author/index-author.php" >Author</a>
+            <a class="active"href="../Dashboard/index.php">Object</a>
+            <a href="../author/index-author.php" >Author</a>
             <div style="float: right;">
                 <a href="../../../login-signup/logout.php">Logout</a>
             </div>
@@ -283,31 +273,61 @@ body{
 
         <br>
         <br>
+
+        <div class="objectButtonContainer">
+                <div class="objectButton">
+                    <a href="index.php"> <img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/AllObjectButton.png" alt=""> </a>
+                  
+                </div>            
+                <div class="objectButton">
+                    <a href="index-a.php"><img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/AnimeButton.png" alt=""> </a>
+                
+                </div>            
+                <div class="objectButton">
+                    <a href="index-m.php"><img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/MangaButton.png" alt=""></a>
+                 
+                </div>
+                <div class="objectButton">
+                    <a href="index-d.php"> <img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/DramaButton.png" alt=""></a>
+                
+                </div>
+                <div class="objectButton">
+                    <a href="add.php"> <img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/DramaButton.png" alt=""></a>
+                 
+                </div>
+        </div>
         <div class="searchBarContainer">
             <form action="" method="GET" class="searchBar" >
-                
-              <div style="float: left;" id="pink-btn"> 
-                  <a href="add.php">ADD</a>
-              </div>
                 <div class="searchBar">
 
                     <input type="text" name='search' value="<?php if(isset($_GET['search']) ){echo $_GET['search'];}?>" class="form-control" placeholder="Search">
                     <button type="submit" class="searchButton">Search</button>
                 </div>  
+
             </form>
+            
+        </div>
+        <br> <br> <br> <br>
         <br> <br> <br> <br>
         <div>
             <div>
                 <div>
                     <table>
                         <thead>
-                                <col width="20%"  />
-                                <col width="20%"/>
+                                <col width="5%"  />
+                                <col width="30%"/>
+                                <col width="5%"/>
+                                <col width="10%"/>
+                                <col width="5%"/>
+                                <col width="25%"/>
                                 <col width="20%"/>
                             <tr>
-                                <th>Author ID</th>
-                                <th>Name</th>
-                                
+                                <th>ID</th>
+                                <th> Name </th>
+                                <th> Type ID</th>
+                                <th> Type </th>
+                                <th> Author ID</th>
+                                <th> Author </th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -316,27 +336,36 @@ body{
                             if(isset($_GET['search']))
                             {
                                 $filtervalues=$_GET['search'];
-                                $totalSearchData=mysqli_query($con," SELECT* FROM author WHERE name LIKE '%$filtervalues%' ");
-                                $searchQuery=" SELECT* FROM author WHERE name LIKE '%$filtervalues%' LIMIT $firstData,$dataLimit";
+
+                                $totalSearchData = mysqli_query($con, "SELECT* from object WHERE type_id='2' AND name LIKE'%$filtervalues%'");
+
+
+                                $searchQuery="SELECT object.object_id 'object_id', object.name 'name',type_of_object.type_id 'type_id',
+                                type_of_object.name 'type', author.author_id 'author_id', author.name 'author'
+                                FROM  OBJECT JOIN author USING(author_id) 
+                                JOIN type_of_object USING(type_id)  WHERE object.type_id='2' AND object.name LIKE '%$filtervalues%' LIMIT $firstData,$dataLimit";
                                 $searchResult=mysqli_query($con,$searchQuery);
+
                                 $totalData = mysqli_num_rows($totalSearchData);
                                 $totalPage = ceil($totalData / $dataLimit);
-
 
                                 if(mysqli_num_rows($searchResult)>0){
                                     foreach ($searchResult as $rows) {
                                         ?>
                                         <tr>
-                                            
+                                            <td><?=$rows['object_id'];?> </td>
+                                            <td>  <?=$rows['name'];?> </td>
+                                            <td><?=$rows['type_id'];?> </td>
+                                            <td><?=$rows['type'];?> </td>
                                             <td><?=$rows['author_id'];?> </td>
-                                            <td><?=$rows['name'];?> </td>
+                                            <td><?=$rows['author'];?> </td>
                             
                                             <td class="table-btn-col">
                                                 <div class="add-btn">
-                                                    <a class="ref" href="edit.php? id=<?=$rows['author_id'];?>">Edit </a> 
+                                                    <a class="ref" href="delete.php? id=<?=$rows['object_id'];?>">Delete </a> 
                                                 </div>
                                                 <div class="add-btn">
-                                                    <a class="ref" href="delete.php? id=<?=$rows['author_id'];?>">Delete </a> 
+                                                    <a class="ref" href="edit.php? id=<?=$rows['object_id'];?>">Edit </a> 
                                                 </div>
                                             </td>
                                         </tr>
@@ -346,27 +375,33 @@ body{
                             }
                             else{
                                 ?> <?php 
-                                $queryx="SELECT* FROM author ";
-                                $result1=mysqli_query($con,$queryx);
-                                $totalData = mysqli_num_rows($result1);
+                                $queryx="SELECT* FROM object WHERE type_id='2' ";
+                                $result=mysqli_query($con,$queryx);
+                                $totalData = mysqli_num_rows($result);
                                 $totalPage = ceil($totalData / $dataLimit);
-                                $query1="SELECT * FROM author LIMIT $firstData,$dataLimit";
+                                $query1="SELECT object.object_id 'object_id', object.name 'name',type_of_object.type_id 'type_id',
+                                type_of_object.name 'type', author.author_id 'author_id', author.name 'author'
+                                FROM  OBJECT JOIN author USING(author_id) 
+                                JOIN type_of_object USING(type_id) WHERE object.type_id='2' ORDER BY object.object_id LIMIT $firstData,$dataLimit;";
                                 $result=mysqli_query($con,$query1);
 
                                 if(mysqli_num_rows($result)>0){
                                     foreach($result as $rows){
                                         ?>
                                         <tr>
-                                            
+                                            <td><?=$rows['object_id'];?> </td>
+                                            <td>  <?=$rows['name'];?> </td>
+                                            <td><?=$rows['type_id'];?> </td>
+                                            <td><?=$rows['type'];?> </td>
                                             <td><?=$rows['author_id'];?> </td>
-                                            <td><?=$rows['name'];?> </td>
+                                            <td><?=$rows['author'];?> </td>
                             
                                             <td class="table-btn-col">
                                                 <div class="add-btn">
-                                                    <a class="ref" href="edit.php? id=<?=$rows['author_id'];?>">Edit </a> 
-                                                </div>
+                                                    <a class="ref" href="delete.php? id=<?=$rows['object_id'];?>">Delete </a> 
+                                                </div>    
                                                 <div class="add-btn">
-                                                    <a class="ref" href="delete.php? id=<?=$rows['author_id'];?>">Delete </a> 
+                                                    <a class="ref" href="edit.php? id=<?=$rows['object_id'];?>">Edit </a> 
                                                 </div>
                                             </td>
                                         </tr>
@@ -380,6 +415,7 @@ body{
                         </tbody>
                     </table>
                 </div>
+
                 <div class="pageNav-Container">
                 <?php
                         for ($i = 1; $i <= $totalPage;$i++) {
@@ -425,8 +461,6 @@ body{
 
                 </div>
 
-                
-            </div>
                 
             </div>
         </div>

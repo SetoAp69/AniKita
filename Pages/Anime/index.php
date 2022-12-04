@@ -1,7 +1,14 @@
+
 <?php 
 session_start();
 include("../../login-signup/connection.php");
 include("../../login-signup/functions.php");
+$username = $_SESSION['user_name'];
+$dataLimit = 10;
+$totalData = 0;
+$totalPage = 0;
+$activePage = (isset($_GET["page"])) ? $_GET["page"] : 1;
+$firstData = ($dataLimit) * ($activePage - 1);
 
 
 $user_data =check_login($con);
@@ -202,10 +209,30 @@ $user_data =check_login($con);
     .ref{
         color: white;
     }
+    .pageNav{
+        padding: 6px;
+        background-color: hotpink;
+        float:left;
+        margin-left:5px;
+        color:white;
+        text-decoration: none;
+
+    }
+    .pageNav :hover{
+        background-color:grey;
+    }
+    #active{
+        background-color: cornflowerblue;
+    }
+    .pageNav-Container{
+        float:right;
+    }
 </style>
 <html>
     <title> </title>
-    <head> </head>
+    <head> 
+        
+    </head>
     <body>
         <div class="topnavigation">
             <a href="../Dashboard/index.php">Home</a>
@@ -300,7 +327,7 @@ $user_data =check_login($con);
         <div>
             <div>
                 <div>
-                    <table>
+                    <table id="anime-table">
                         <thead>
                                 <col width="5%"  />
                                 <col width="30%"/>
@@ -323,34 +350,56 @@ $user_data =check_login($con);
                             if(isset($_GET['search']))
                             {
                                 $filtervalues=$_GET['search'];
-                                $searchQuery="SELECT object.name 'name', object.type_id 't_id',object.object_id 'id', author.name 'Studio',  ROUND(AVG(rating_table.rate),2) 'avg_rate', COUNT(rating_table.rate) 'rate_count'
+                                $totalSearchData = mysqli_query($con,"SELECT object.name 'name', object.type_id 't_id', author.author_id,
+                                object.object_id 'id', author.name 'Studio',  ROUND(AVG(rating_table.rate),2) 'avg_rate',
+                                 COUNT(rating_table.rate) 'rate_count'
                                 FROM 
                                 author JOIN object USING(author_id)
                                 LEFT JOIN 
                                 rating_table USING(object_id) 
                                 WHERE object.type_id='1' AND object.name LIKE '%$filtervalues%'
-                                GROUP BY (object.object_id) ";
+                                GROUP BY (object.object_id) ORDER BY object_id");
+
+                                
+
+                                $searchQuery="SELECT object.name 'name', object.type_id 't_id', author.author_id,
+                                object.object_id 'id', author.name 'Studio',  ROUND(AVG(rating_table.rate),2) 'avg_rate',
+                                 COUNT(rating_table.rate) 'rate_count'
+                                FROM 
+                                author JOIN object USING(author_id)
+                                LEFT JOIN 
+                                rating_table USING(object_id) 
+                                WHERE object.type_id='1' AND object.name LIKE '%$filtervalues%'
+                                GROUP BY (object.object_id) ORDER BY object_id LIMIT $firstData,$dataLimit";
+
                                 $searchResult=mysqli_query($con,$searchQuery);
+
+                                $totalData = mysqli_num_rows($totalSearchData);
+                                $totalPage = ceil($totalData / $dataLimit);
 
                                 if(mysqli_num_rows($searchResult)>0){
                                     foreach ($searchResult as $rows) {
                                         ?>
                                         <tr>
                                             <td><?=$rows['id'];?> </td>
-                                            <td> <a style="color: black; font-weight: bold;" href="../../Object/<?=$rows['t_id'];?>/<?=$rows['id'];?>/index.php"> <?=$rows['name'];?> </a>  </td>
-                                            <td><?=$rows['Studio'];?> </td>
+                                            <td> 
+                                                <a style="color: black; font-weight: bold;" href="../../Object/<?=$rows['t_id'];?>/<?=$rows['id'];?>/index.php">
+                                                 <?=$rows['name'];?> 
+                                                </a>  
+                                            </td>
+                                            <td>
+                                                 <a style="color: black; font-weight: bold; " href="index-by-author.php? id=<?=$rows['author_id'];?>"> 
+                                                 <?=$rows['Studio'];?> 
+                                                </a> 
+                                            </td>
                                             <td><?=$rows['avg_rate'];?> </td>
                                             <td><?=$rows['rate_count'];?> </td>
                                             <td class="table-btn-col">
                                                 <div class="add-btn">
                                                     <a class="ref" href="add.php? id=<?=$rows['id'];?>">add </a> 
-                                                    
-                                                
+                    
                                                 </div>
-                                                
-                                                
-                                                
-                                                
+                        
                                             </td>
                                         </tr>
 
@@ -358,17 +407,23 @@ $user_data =check_login($con);
                                     }
 
                                 }
-
                             }
                             else{
+                                //display all data
                                 ?> <?php 
-                                $query1="SELECT object.name 'name', object.type_id 't_id' ,object.object_id 'id', author.name 'Studio',  ROUND(AVG(rating_table.rate),2) 'avg_rate', COUNT(rating_table.rate) 'rate_count'
+                                $queryx="SELECT* FROM object where type_id='1' ";
+                                $result1=mysqli_query($con,$queryx);
+                                $totalData = mysqli_num_rows($result1);
+                                $totalPage = ceil($totalData / $dataLimit);
+                                $query1="SELECT object.name 'name', object.type_id 't_id' ,object.object_id 'id', 
+                                author.name 'Studio',  author.author_id,
+                                ROUND(AVG(rating_table.rate),2) 'avg_rate', COUNT(rating_table.rate) 'rate_count'
                                 FROM 
                                 author JOIN object USING(author_id)
                                 LEFT JOIN 
                                 rating_table USING(object_id) 
                                 WHERE object.type_id='1'
-                                GROUP BY (object.object_id) ";
+                                GROUP BY (object.object_id) LIMIT $firstData, $dataLimit ";
                                 $result=mysqli_query($con,$query1);
 
                                 if(mysqli_num_rows($result)>0){
@@ -376,8 +431,16 @@ $user_data =check_login($con);
                                         ?>
                                         <tr>
                                             <td><?=$rows['id'];?> </td>
-                                            <td> <a style="color: black; font-weight: bold;" href="../../Object/<?=$rows['t_id'];?>/<?=$rows['id'];?>/index.php"> <?=$rows['name'];?> </a>  </td>
-                                            <td><?=$rows['Studio'];?> </td>
+                                            <td>
+                                                <a style="color: black; font-weight: bold;" href="../../Object/<?=$rows['t_id'];?>/<?=$rows['id'];?>/index.php"> 
+                                                    <?=$rows['name'];?>
+                                                 </a>  
+                                            </td>
+                                            <td>
+                                                 <a style="color: black; font-weight: bold; " href="index-by-author.php? id=<?=$rows['author_id'];?>"> 
+                                                 <?=$rows['Studio'];?> 
+                                                </a> 
+                                            </td>
                                             <td><?=$rows['avg_rate'];?> </td>
                                             <td><?=$rows['rate_count'];?> </td>
                                             <td class="table-btn-col">
@@ -413,19 +476,62 @@ $user_data =check_login($con);
                         </tbody>
 
                     </table>
+                    <br>
+                    
+
                 </div>
+                <div class="pageNav-Container">
+                <?php
+                        for ($i = 1; $i <= $totalPage;$i++) {
+                            if($i==$activePage){
+                                if(isset($_GET['search'])){
+                                    $filtervalues = $_GET['search'];
+                                    ?>
+                                    <a class="pageNav" id="active"  href="?page=<?= $i; ?>&search=<?=$filtervalues;?>"> <?=$i;?></a>
+                                    <?php
+    
+                                }
+                                else{
+                                    ?>
+                                    <a class="pageNav" id="active" href="?page=<?=$i;?>"><?= $i;?></a>
+    
+                                    <?php
+                                }
+
+                            }
+                            else{
+                                if(isset($_GET['search'])){
+                                    $filtervalues = $_GET['search'];
+                                    ?>
+                                    <a class="pageNav" href="?page=<?= $i; ?>&search=<?=$filtervalues;?>"> <?=$i;?></a>
+                                    <?php
+                                    
+    
+                                }
+                                else{
+                                    ?>
+                                    <a class="pageNav" href="?page=<?=$i;?>"><?= $i;?></a>
+    
+                                    <?php
+                                }
+
+                            }
+                            
+
+                        }
+                        
+
+                    ?>
+
+                </div>
+
                 
             </div>
         </div>
 
         <br>
         <br>
-
-
-
-
-        <br>  <br><br>  <br><br>  <br><br>  <br>
-        <br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br>
+        <br>
         <div class="footer">
         <div class="section"> 
             <div class="content">
