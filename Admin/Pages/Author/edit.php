@@ -1,65 +1,34 @@
 <?php 
 
-    session_start();
-    include("../../login-signup/connection.php");
-    include("../../login-signup/functions.php");
+session_start();
+    include("../../../login-signup/connection.php");
+    include("../../../login-signup/functions.php");
+    $id='';
     if(isset($_GET['id'])){
         $id=$_GET['id'];
-        $username=$_SESSION['user_name'];
-        $queryCheck="SELECT* FROM rating_table WHERE object_id='$id' AND username='$username'";
-        $checkResult=mysqli_query($con,$queryCheck);
-        if(mysqli_num_rows($checkResult)==0){
-            if($_SERVER['REQUEST_METHOD']=='POST'){
-                $new_rate = $_POST['new_rate'];
-                if($new_rate>10){
-                    $new_rate=10;
+        $admin_id=$_SESSION['admin_id'];
+        
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $admin_id=$_SESSION['admin_id'];
+            $name = $_POST['name'];
+            $query="UPDATE author SET name='$name' WHERE author_id='$id'";
+            
+    
+            if(!empty($name)){
+                if($con->query($query)=== TRUE){
+                    echo "Name Has Been Updated !";
+                    header("../../pages/MyProfile/index.php");
                 }
-                $query = "INSERT INTO rating_table VALUE ('$username','$id','$new_rate')";
-                if(!empty($new_rate)){
-                    if($con->query($query)===TRUE){
-                        header("../../pages/MyProfile/index.php");
-                    }
-                    else{
-                        echo"Something Wrong";
-                    }
-                    echo"Success";
+                else {
+                    echo "Something Wrong";
                 }
-                else{
-                    echo"Please Enter new rate";
-                }
-
+    
             }
-           
-        }
-        else{
-            echo"Object Already on Your List!";
-            header("../MyProfile/index.php");
-        }
 
-    }
-    $query2="SELECT name FROM object WHERE object_id='$id' LIMIT 1";
-    $result=mysqli_query($con,$query2);
-    $objectName="";
-    if($result){
-        if($result && mysqli_num_rows($result)>0){
-            $object_data=mysqli_fetch_assoc($result);
-            $objectName=$object_data['name'];
-            
-            
-
-            
-            
-
-        }
-        else{
-            echo "your password or username is invalid";
         }
     }
-
     
-    /*if()
-    
-    if($_SERVER['REQUEST_METHOD']=='POST'){
+    /*if($_SERVER['REQUEST_METHOD']=='POST'){
         if(isset($_GET['id'])){
             $id=$_GET['id'];
             $username=$_SESSION['user_name'];
@@ -67,11 +36,11 @@
             if($new_rate>10){
                 $new_rate=10;
             }
-            
+            $query = "UPDATE rating_table SET rate = '$new_rate' WHERE object_id='$id' AND username='$username'";
     
             if(!empty($new_rate)){
                 if($con->query($query)=== TRUE){
-                    //echo "Rate Has Been Updated !";
+                    echo "Rate Has Been Updated !";
                     header("../../pages/MyProfile/index.php");
                 }
                 else {
@@ -87,11 +56,34 @@
         }
 
     }*/
+    $query2="SELECT name FROM author WHERE author_id='$id' LIMIT 1";
+    $result=mysqli_query($con,$query2);
+    $authorName="";
+
+    if(isset($_GET['id'])){
+        $id=$_GET['id'];
+        if($result){
+            if($result && mysqli_num_rows($result)>0){
+                $author_data=mysqli_fetch_assoc($result);
+                $authorName=$author_data['name'];
+                
+                
+    
+                
+                
+    
+            }
+            else{
+                echo "error";
+            }
+        }
+    }
+    
+    
     
 
 ?>
-<style>
-    .container{
+<style> ::after.container{
       position: absolute;
       top: 50%;
       left: 50%;
@@ -201,9 +193,7 @@
     #text1{
         color: white;
 
-    }
-    
-</style>
+    }</style>
 
 <!DOCTYPE html>
 <html>
@@ -214,15 +204,15 @@
             <div class="box">
                 <div class="content" style="text-align: center;">
                 <br>
-                    <h2 id="text1"><?php echo "$objectName"?></h2>
-                    <p id="text1"> Enter your rate </p>
-                     <?php
-                     ?>
+                    <h2 id="text1">Edit</h2>
+                    
+
+                     
                 </div>
                 <div class="content">
                         <form method="POST">
-                            
-                            <input id="text" type="text" name="new_rate" class="" style="float: top;">
+                            <label for="name">Name</label>
+                            <input id="text" type="text" name="name" class="" style="float: top;">
                             <br> <br>
 
                             <div class="btn-container">
@@ -233,14 +223,29 @@
                                 </div>
                                 <div class="box-btn">
                                     <div class="back-btn"> 
-                                        <a href="index.php">Back</a>
+                                        <a href="index-author.php">Back</a>
                                     </div>
 
                                 </div>
+                                
+
                             </div>
+
+                            
+                                
+                            
+                            
+
                         </form>
 
                 </div>
+
+
+                
+                
+
+
+
             </div>
 
 
@@ -283,7 +288,7 @@
     </body>
     <script>
         function backToProfile(){
-            mywindow = window.open("../../pages/MyProfile/index.php");
+            mywindow = window.open("index-author.php");
             mywindow.location.reload(true);
             
             
