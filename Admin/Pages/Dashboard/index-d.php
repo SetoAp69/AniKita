@@ -252,6 +252,9 @@ body{
     .pageNav-Container{
         float:right;
     }
+    #active-cat{
+        background-color: hotpink;
+    }
 </style>
 
 <!DOCTYPE html>
@@ -275,24 +278,24 @@ body{
         <br>
 
         <div class="objectButtonContainer">
-                <div class="objectButton">
-                    <a href="index.php"> <img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/AllObjectButton.png" alt=""> </a>
+                <div class="objectButton" >
+                    <a href="index.php"> <img style=" height: 35px; width: 35px ;  margin-top:45%; " src="../../../Assets/AllObjectButton.png" alt=""> </a>
                   
                 </div>            
                 <div class="objectButton">
-                    <a href="index-a.php"><img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/AnimeButton.png" alt=""> </a>
+                    <a href="index-a.php"><img style=" height: 35px; width: 35px ;  margin-top:45%; " src="../../../Assets/AnimeButton.png" alt=""> </a>
                 
                 </div>            
                 <div class="objectButton">
-                    <a href="index-m.php"><img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/MangaButton.png" alt=""></a>
+                    <a href="index-m.php"><img style=" height: 35px; width: 35px ;  margin-top:45%; " src="../../../Assets/MangaButton.png" alt=""></a>
                  
                 </div>
-                <div class="objectButton">
-                    <a href="index-d.php"> <img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/DramaButton.png" alt=""></a>
+                <div class="objectButton" id="active-cat">
+                    <a href="index-d.php"> <img style=" height: 35px; width: 35px ;  margin-top:45%; " src="../../../Assets/DramaButton.png" alt=""></a>
                 
                 </div>
                 <div class="objectButton">
-                    <a href="add.php"> <img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/DramaButton.png" alt=""></a>
+                    <a href="add.php"> <img style=" height: 35px; width: 35px ;  margin-top:45%; " src="../../../Assets/AddButton.png" alt=""></a>
                  
                 </div>
         </div>
@@ -365,7 +368,7 @@ body{
                                                     <a class="ref" href="delete.php? id=<?=$rows['object_id'];?>">Delete </a> 
                                                 </div>
                                                 <div class="add-btn">
-                                                    <a class="ref" href="delete.php? id=<?=$rows['object_id'];?>">Edit </a> 
+                                                    <a class="ref" href="edit.php? id=<?=$rows['object_id'];?>">Edit </a> 
                                                 </div>
                                             </td>
                                         </tr>
@@ -399,10 +402,10 @@ body{
                             
                                             <td class="table-btn-col">
                                                 <div class="add-btn">
-                                                    <a class="ref" href="delete.php? id=<?=$rows['edit_id'];?>">Delete </a> 
+                                                    <a class="ref" href="delete.php? id=<?=$rows['object_id'];?>">Delete </a> 
                                                 </div>    
                                                 <div class="add-btn">
-                                                    <a class="ref" href="delete.php? id=<?=$rows['edit_id'];?>">Edit </a> 
+                                                    <a class="ref" href="edit.php? id=<?=$rows['object_id'];?>">Edit </a> 
                                                 </div>
                                             </td>
                                         </tr>

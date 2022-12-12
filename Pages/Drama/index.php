@@ -512,47 +512,43 @@ $firstData = ($dataLimit) * ($activePage - 1);
         </div>
         <br>
         <br>
+        <br>
+        <br>
+        <br>
 
-
-
-
-        <br>  <br><br>  <br><br>  <br><br>  <br>
-        <br>  <br><br> 
         <div class="footer">
         <div class="section"> 
             <div class="content">
-                <h2>Follow Us on </h2>
+                <img src="" alt="">
+
+            </div>
+        </div>
+        <div class="section">
+            <div class="content">
+                <h3>Follow Us On</h3>
                 <a href=""style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
                 <a href=""style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
                 <a href=""style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
                 <a href="" style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
             </div>
         </div>
         <div class="section">
             <div class="content">
-                <h3>Follow Us on </h3>
-            </div>
-        </div>
-        
-        
-
-        <div class="section">
-            <div class="content">
-                <h3>Follow Us on </h3>
+                <h3>More About Us </h3>
                 <div style="float: left;">
                     <a href=""style="color:white">About</a> <br> <br>
                     <a href="" style="color:white">Faq</a><br> <br>
                     <a href="" style="color:white">Support</a><br> <br>
                 </div>
-                <div style="float:left; margin-left:1px;">
+                <div style="float:left; margin-left:20px;">
                     <a href="" style="color:white">Privacy</a><br> <br>
                     <a href="" style="color:white">Cookie</a><br> <br>
                 </div>

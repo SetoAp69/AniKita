@@ -251,7 +251,6 @@ $firstData = ($dataLimit) * ($activePage - 1);
             <img class="image" src="../../Object/2/OB006/Poster.jpg" alt="">
             <div class="content"> 
                 <h3>Bleach</h3>
-                <p>bla bla bla</p>
                 <a href="../../Object/2/OB006/index.php" style="color: white">Read More</a>
             </div>
         </div>
@@ -259,7 +258,6 @@ $firstData = ($dataLimit) * ($activePage - 1);
             <img class="image" src="../../Object/2/OB007/Poster.jpg" alt="">
             <div class="content"> 
                 <h3>Shounen No Abyss</h3>
-                <p>bla bla bla</p>
                 <a href="../../Object/2/OB007/index.php" style="color: white">Read More</a>
             </div>
             
@@ -268,7 +266,6 @@ $firstData = ($dataLimit) * ($activePage - 1);
             <img class="image" src="../../Object/2/OB008/Poster.jpg" alt="">
             <div class="content"> 
                 <h3>Great Teacher Onizuka</h3>
-                <p>bla bla bla</p>
                 <a href="../../Object/2/OB008/index.php" style="color: white">Read More</a>
             </div>  
             
@@ -277,7 +274,6 @@ $firstData = ($dataLimit) * ($activePage - 1);
             <img class="image" src="../../Object/2/OB009/Poster.jpg" alt="">
             <div class="content"> 
                 <h3>Fairy Tail</h3>
-                <p>bla bla bla</p>
                 <a href="../../Object/2/OB009/index.php" style="color: white">Read More</a>
             </div>
             
@@ -286,7 +282,6 @@ $firstData = ($dataLimit) * ($activePage - 1);
             <img class="image" src="../../Object/2/OB010/Poster.jpg" alt="">
             <div class="content"> 
                 <h3>Made In Abyss</h3>
-                <p>bla bla bla</p>
                 <a href="../../Object/2/OB010/index.php" style="color: white">Read More</a>
             </div>
             
@@ -512,5 +507,52 @@ $firstData = ($dataLimit) * ($activePage - 1);
                 
             </div>
         </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="footer">
+        <div class="section"> 
+            <div class="content">
+                <img src="" alt="">
+
+            </div>
+        </div>
+        <div class="section">
+            <div class="content">
+                <h3>Follow Us On</h3>
+                <a href=""style="margin:5px;">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
+                </a>
+                <a href=""style="margin:5px;">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
+                </a>
+                <a href=""style="margin:5px;">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
+                </a>
+                <a href="" style="margin:5px;">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="section">
+            <div class="content">
+                <h3>More About Us </h3>
+                <div style="float: left;">
+                    <a href=""style="color:white">About</a> <br> <br>
+                    <a href="" style="color:white">Faq</a><br> <br>
+                    <a href="" style="color:white">Support</a><br> <br>
+                </div>
+                <div style="float:left; margin-left:20px;">
+                    <a href="" style="color:white">Privacy</a><br> <br>
+                    <a href="" style="color:white">Cookie</a><br> <br>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
     </body>
 </html>

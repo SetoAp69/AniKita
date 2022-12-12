@@ -97,10 +97,9 @@ include("functions.php");
                 <br>
                 <br>
                 <input id="button" type="submit" value="Login">
-                <br>
-                <br>
+                
             
-                <a href="signup-admin.php" style=" color: aliceblue; ">Signup here</a> <br><br>
+                
             </form>
         </div><br><br>
 

@@ -252,6 +252,9 @@ $name=mysqli_fetch_assoc($result);
     .pageNav-Container{
         float:right;
     }
+    #active-cat{
+        background-color: hotpink;
+    }
     
 
 
@@ -273,13 +276,15 @@ $name=mysqli_fetch_assoc($result);
         </div>
         <div class="profile">
             <div class="content">
-                <div class="pp">
+                <div >
+                    <img class="pp"src="icon.png" alt="">
 
                 </div>
                 <div id="par" class="bio"> 
+                    <br>
                     <h2 > <?php echo $name['name']?></h2>
-                    <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eveniet provident obcaecati, dolores inventore rerum tempora hic! Nostrum exercitationem incidunt est, aperiam voluptatum ipsa obcaecati explicabo id cum? Optio, inventore iste!</p>
-                </div>
+                    
+                    </div>
                 
             </div>
             
@@ -288,23 +293,23 @@ $name=mysqli_fetch_assoc($result);
 
         </div>
         <div class="objectButtonContainer">
-                <div class="objectButton">
-                    <a href="index.php"> <img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/AllObjectButton.png" alt=""> </a>
+                <div class="objectButton" id="active-cat">
+                    <a href="index.php"> <img style=" height: 35px; width: 35px ;  margin-top:45%; " src="../../Assets/AllObjectButton.png" alt=""> </a>
                     
                 
                 </div>            
                 <div class="objectButton">
-                    <a href="index-a.php"><img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/AnimeButton.png" alt=""> </a>
+                    <a href="index-a.php"><img style=" height: 35px; width: 35px ;  margin-top:45%; " src="../../Assets/AnimeButton.png" alt=""> </a>
                     
                 
                 </div>            
                 <div class="objectButton">
-                    <a href="index-m.php"><img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/MangaButton.png" alt=""></a>
+                    <a href="index-m.php"><img style=" height: 35px; width: 35px ;  margin-top:45%; " src="../../Assets/MangaButton.png" alt=""></a>
                     
                 
                 </div>
                 <div class="objectButton">
-                    <a href="index-d.php"> <img style=" height: 35px; width: 35px ;  margin-top:20%; " src="../../Assets/DramaButton.png" alt=""></a>
+                    <a href="index-d.php"> <img style=" height: 35px; width: 35px ;  margin-top:45%; " src="../../Assets/DramaButton.png" alt=""></a>
                     
                 
                 </div>
@@ -375,11 +380,7 @@ $name=mysqli_fetch_assoc($result);
                                                 </a>  
                                             </td>
                                             <td><?=$rows['type'];?> </td>
-                                            <td>
-                                                 <a style="color: black; font-weight: bold; " href="index-by-author.php? id=<?=$rows['author_id'];?>"> 
-                                                 <?=$rows['author'];?> 
-                                                </a> 
-                                            </td>
+                                            <td> <?=$rows['author'];?></td>
                                             <td><?=$rows['rate'];?> </td>
                                             <td class="table-btn-col">
                                                 <div class="table-btn">
@@ -423,11 +424,7 @@ $name=mysqli_fetch_assoc($result);
                                                 </a>  
                                             </td>
                                             <td><?=$rows['type'];?> </td>
-                                            <td>
-                                                 <a style="color: black; font-weight: bold; " href="index-by-author.php? id=<?=$rows['author_id'];?>"> 
-                                                 <?=$rows['author'];?> 
-                                                </a> 
-                                            </td>
+                                            <td> <?=$rows['author'];?></td>
                                             <td><?=$rows['rate'];?> </td>
                                             <td class="table-btn-col">
                                                 <div class="table-btn">
@@ -503,43 +500,43 @@ $name=mysqli_fetch_assoc($result);
         </div>
         <br>
         <br>
-        
+        <br>
+        <br>
+        <br>
+
         <div class="footer">
         <div class="section"> 
             <div class="content">
-                <h2>Follow Us on </h2>
+                <img src="" alt="">
+
+            </div>
+        </div>
+        <div class="section">
+            <div class="content">
+                <h3>Follow Us On</h3>
                 <a href=""style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
                 <a href=""style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
                 <a href=""style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
                 <a href="" style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
             </div>
         </div>
         <div class="section">
             <div class="content">
-                <h3>Follow Us on </h3>
-            </div>
-        </div>
-
-        
-
-
-        <div class="section">
-            <div class="content">
-                <h3>Follow Us on </h3>
+                <h3>More About Us </h3>
                 <div style="float: left;">
                     <a href=""style="color:white">About</a> <br> <br>
                     <a href="" style="color:white">Faq</a><br> <br>
                     <a href="" style="color:white">Support</a><br> <br>
                 </div>
-                <div style="float:left; margin-left:1px;">
+                <div style="float:left; margin-left:20px;">
                     <a href="" style="color:white">Privacy</a><br> <br>
                     <a href="" style="color:white">Cookie</a><br> <br>
                 </div>

@@ -286,8 +286,8 @@ body{
         <div class="searchBarContainer">
             <form action="" method="GET" class="searchBar" >
                 
-              <div style="float: left;" id="pink-btn"> 
-                  <a href="add.php">ADD</a>
+              <div style="float: left; color:white; text-decoration: None;" id="pink-btn"> 
+                  <a style="float: top; color:white; text-decoration: None; margin-top: 15%;" href="add.php">ADD</a>
               </div>
                 <div class="searchBar">
 

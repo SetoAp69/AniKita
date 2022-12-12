@@ -254,8 +254,8 @@ $user_data =check_login($con);
                     <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB001/One-piece-Poster.jpg" alt="">
                     <div class="content"> 
                         <h3>One Piece</h3>
-                        <p> bla bla bla </p>
-                        <a  href=" login.php" style="color: white;">Read More</a>
+                        
+                        <a  href="../../Object/1/OB001" style="color: white;">Read More</a>
 
                     </div>
                 
@@ -266,8 +266,8 @@ $user_data =check_login($con);
                     <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB002/Poster.jpg" alt="">
                     <div class="content"> 
                         <h3>Jujutsu Kaisen</h3>
-                        <p> bla bla bla </p>
-                        <a  href=" login.php" style="color: white;">Read More</a>
+                        
+                        <a  href="../../Object/1/OB002" style="color: white;">Read More</a><
 
                     </div>
                 
@@ -278,8 +278,7 @@ $user_data =check_login($con);
             <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB003/Poster.jpg" alt="">
                     <div class="content"> 
                         <h3>Tenki No Ko</h3>
-                        <p> bla bla bla </p>
-                        <a  href=" login.php" style="color: white;">Read More</a>
+                        <a  href="../../Object/1/OB003" style="color: white;">Read More</a>
 
                     </div>
 
@@ -289,8 +288,7 @@ $user_data =check_login($con);
                     <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB004/Poster.jpg" alt="">
                     <div class="content"> 
                         <h3>Neon Genesis Evangelion</h3>
-                        <p> bla bla bla </p>
-                        <a  href=" login.php" style="color: white;">Read More</a>
+                        <a  href="../../Object/1/OB004" style="color: white;">Read More</a>
 
                     </div>
 
@@ -300,9 +298,7 @@ $user_data =check_login($con);
             <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB005/Poster.jpg" alt="">
                     <div class="content"> 
                         <h3>Kimi No Nawa</h3>
-                        <p> bla bla bla </p>
-                        <a  href=" login.php" style="color: white;">Read More</a>
-
+                        <a  href="../../Object/1/OB005" style="color: white;">Read More</a>
                     </div>
 
             </div>
@@ -532,41 +528,42 @@ $user_data =check_login($con);
         <br>
         <br>
         <br>
+        <br>
+        <br>
+
         <div class="footer">
         <div class="section"> 
             <div class="content">
-                <h2>Follow Us on </h2>
+                <img src="" alt="">
+
+            </div>
+        </div>
+        <div class="section">
+            <div class="content">
+                <h3>Follow Us On</h3>
                 <a href=""style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
                 <a href=""style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
                 <a href=""style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
                 <a href="" style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
             </div>
         </div>
         <div class="section">
             <div class="content">
-                <h3>Follow Us on </h3>
-            </div>
-        </div>
-        
-        
-
-        <div class="section">
-            <div class="content">
-                <h3>Follow Us on </h3>
+                <h3>More About Us </h3>
                 <div style="float: left;">
                     <a href=""style="color:white">About</a> <br> <br>
                     <a href="" style="color:white">Faq</a><br> <br>
                     <a href="" style="color:white">Support</a><br> <br>
                 </div>
-                <div style="float:left; margin-left:1px;">
+                <div style="float:left; margin-left:20px;">
                     <a href="" style="color:white">Privacy</a><br> <br>
                     <a href="" style="color:white">Cookie</a><br> <br>
                 </div>

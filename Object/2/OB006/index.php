@@ -7,7 +7,7 @@ $userRate = 0;
 $rate = 0;
 $rate_count = 0;
 $avg_rate =0;
-$query = "SELECT rate FROM rating_table WHERE username='$username' AND object_id='OB001' LIMIT 1";
+$query = "SELECT rate FROM rating_table WHERE username='$username' AND object_id='OB006' LIMIT 1";
 $result = mysqli_query($con,$query);
 if(mysqli_num_rows($result)>0){
     $rate = mysqli_fetch_assoc($result)['rate'];
@@ -16,7 +16,7 @@ if(mysqli_num_rows($result)>0){
 
 
 
-$query1 = "SELECT COUNT(rate) 'rate_count' FROM rating_table WHERE object_id='OB001' GROUP BY(object_id)";
+$query1 = "SELECT COUNT(rate) 'rate_count' FROM rating_table WHERE object_id='OB006' GROUP BY(object_id)";
 $result1 = mysqli_query($con, $query1);
 
 
@@ -25,7 +25,7 @@ if(mysqli_num_rows($result1)>0){
 }
 
 
-$query2 = "SELECT ROUND(AVG(rate),2) 'avg_rate' FROM rating_table WHERE object_id='OB001' GROUP BY(object_id)";
+$query2 = "SELECT ROUND(AVG(rate),2) 'avg_rate' FROM rating_table WHERE object_id='OB006' GROUP BY(object_id)";
 $result2 = mysqli_query($con, $query2);
 if(mysqli_num_rows($result2)>0){
     $avg_rate = mysqli_fetch_array($result2)['avg_rate'];
@@ -136,15 +136,6 @@ if(mysqli_num_rows($result2)>0){
         
 
     }
-    .cast-pic{
-        
-        width:50px;
-        height:71px;
-
-    }
-    .va{
-        text-align: right;
-    }
     .footer{
         position: relative;
         float:bottom;
@@ -175,7 +166,19 @@ if(mysqli_num_rows($result2)>0){
         width: 40px;
         height: 30px;
     }
+    .cast-pic{
+        
+        width:50px;
+        height:71px;
 
+    }
+    .va{
+        text-align: right;
+    }
+    .title{
+        font-weight: bold;
+        font-size: 30px;
+    }
     
     
 </style>
@@ -183,7 +186,7 @@ if(mysqli_num_rows($result2)>0){
 <!DOCTYPE HTML> 
 <html>
     <title>
-        One Piece
+        BLEACH
     </title>
     <head>
 
@@ -192,8 +195,8 @@ if(mysqli_num_rows($result2)>0){
     <div class="topnavigation">
             <a href="../../../Pages/Dashboard/index.php">Home</a>
             <a href="../../../Pages/MyProfile/index.php" >Profile</a>
-            <a class="active"  href="../../../Pages/Anime/index.php"> Anime</a>
-            <a href="../../../Pages/Manga/index.php">Manga</a>
+            <a href="../../../Pages/Anime/index.php"> Anime</a>
+            <a class="active"  href="../../../Pages/Manga/index.php">Manga</a>
             <a href="../../../Pages/Drama/index.php">Drama</a>
             
             <div style="float: right;">
@@ -207,7 +210,7 @@ if(mysqli_num_rows($result2)>0){
             <tbody>
                 <tr>
                     <td width="225" style="border-width:0 10px 0 0; border-color: black; " valign="top">
-                        <h2 class="title">One Piece</h3>
+                        <h2 class="title">Bleach</h3>
                         <div class="picture">
                             <img class="picture" src="Poster.jpg" alt="">
                         </div>
@@ -216,11 +219,11 @@ if(mysqli_num_rows($result2)>0){
                         </div>
                         <div class="information-box">
                             <div class="information-data"> 
-                                Episode
+                                Chapters
                             </div>
                             <div class="colon">:</div>
                             <div class="information-value">
-                                1025/?
+                                705
                             </div>
                         </div>
                         <div class="information-box">
@@ -229,16 +232,16 @@ if(mysqli_num_rows($result2)>0){
                             </div>
                             <div class="colon">:</div>
                             <div class="information-value">
-                                20 October 1999
+                                7 Aug 2001
                             </div>
                         </div>
                         <div class="information-box">
                             <div class="information-data"> 
-                                Studio
+                                Author
                             </div>
                             <div class="colon">:</div>
                             <div class="information-value">
-                                TOEI animation
+                                Kubo, Tite
                             </div>
                         </div>
                         <div class="information-box">
@@ -247,7 +250,7 @@ if(mysqli_num_rows($result2)>0){
                             </div>
                             <div class="colon">:</div>
                             <div class="information-value">
-                                On-going
+                                Finished
                             </div>
                         </div>
                         
@@ -282,7 +285,7 @@ if(mysqli_num_rows($result2)>0){
                                                        <td class="score"> <?=$avg_rate;?></td>
                                                        <td class="score" style="font-weight: lighter ;"> <?=$rate;?></td>  
                                                        <td > 
-                                                        <a href="../../../Pages/Anime/add.php?id=OB001" class="add-btn">+</a>
+                                                        <a href="../../../Pages/Anime/add.php?id=OB006" class="add-btn">+</a>
                                                          </td>
                                                     </tr>
                                                     <tr>
@@ -297,11 +300,11 @@ if(mysqli_num_rows($result2)>0){
                                         <td style="border-bottom: 2px solid #CDDEEE;">
                                             <div class="custom-heading"> Synopsis </div>
                                             <div class="synopsis-container"> 
-                                                <p>Gol D. Roger was known as the "Pirate King," the strongest and most infamous being to have sailed the Grand Line. The capture and execution of Roger by the World Government brought a change throughout the world. His last words before his death revealed the existence of the greatest treasure in the world, One Piece. It was this revelation that brought about the Grand Age of Pirates, men who dreamed of finding One Piece—which promises an unlimited amount of riches and fame—and quite possibly the pinnacle of glory and the title of the Pirate King.
-                                                </p> 
+                                                <p>For as long as he can remember, high school student Ichigo Kurosaki has been able to see the spirits of the dead, but that has not stopped him from leading an ordinary life. One day, Ichigo returns home to find an intruder in his room who introduces herself as Rukia Kuchiki, a Soul Reaper tasked with helping souls pass over. Suddenly, the two are jolted from their conversation when a Hollow—an evil spirit known for consuming souls—attacks. As Ichigo makes a brash attempt to stop the Hollow, Rukia steps in and shields him from a counterattack. Injured and unable to keep fighting, Rukia suggests a risky plan—transfer half of her Soul Reaper powers to Ichigo. He accepts and, to Rukia's surprise, ends up absorbing her powers entirely, allowing him to easily dispatch the Hollow.
+</p> 
                                                 <p>
-                                                Enter Monkey D. Luffy, a 17-year-old boy who defies your standard definition of a pirate. Rather than the popular persona of a wicked, hardened, toothless pirate ransacking villages for fun, Luffy's reason for being a pirate is one of pure wonder: the thought of an exciting adventure that leads him to intriguing people and ultimately, the promised treasure. Following in the footsteps of his childhood hero, Luffy and his crew travel across the Grand Line, experiencing crazy adventures, unveiling dark mysteries and battling strong enemies, all in order to reach the most coveted of all fortunes—One Piece.
-                                                </p>
+                                                Now a Soul Reaper himself, Ichigo must take up Rukia's duties of exterminating Hollows and protecting spirits, both living and dead. Along with his friends Orihime Inoue and Yasutora Sado—who later discover spiritual abilities of their own—Ichigo soon learns that the consequences of becoming a Soul Reaper and dealing with the world of spirits are far greater than he ever imagined.
+</p>
                                                 <br>
                                             </div>
                                         </td>
@@ -311,86 +314,63 @@ if(mysqli_num_rows($result2)>0){
                                     </tr>
                                     <tr>
                                         <td>
-                                            <div class="custom-heading"> Character & Voice Actors</div>
+                                            <div class="custom-heading"> Characters</div>
                                             <br>
                                             <div>
                                                 <table>
                                                     <tbody>
                                                         <col width="50px">
-                                                        <col width="150px">
-                                                        <col width="150px">
-                                                        <col width="50px">
+                                                        <col width="600px">
                                                         <col width="10px">
                                                         <col width="50px">
-                                                        <col width="150px">
-                                                        <col width="150px">
-                                                        <col width="50px">
+                                                        <col width="600px">
+                                                        
                                                         <tr >
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td>Monkey D. Luffy</td>
-                                                            <td class="va">Tanaka Mayumi</td>
-                                                            <td class="cast-pic"> <img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td>Kurosaki, Ichigo</td>
                                                             <td></td>
                                                             <td class="cast-pic"> <img class="cast-pic" src="Icon.png" alt=""> </td>
-                                                            <td >Roronoa Zoro</td>
-                                                            <td class="va">Nakai, Kazuya</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td >Kuchiki, Rukia</td>
                                                             
                                                             
                                                         </tr>
                                                         <tr></tr>
                                                         <tr>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td>Sanji</td>
-                                                            <td class="va">Hirata, Hiroaki</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td>Inoue, Orihime</td>
                                                             <td></td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td >Nico, Robin</td>
-                                                            <td class="va"> Yamaguchi, Yuriko</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td >Sado, Yasutora</td>
                                                             
                                                             
                                                         </tr>
                                                         <tr></tr>
                                                         <tr>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td>Nami</td>
-                                                            <td class="va">Okamura, Akemi</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td>Ishida, Uryuu</td>
                                                             <td></td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td >Usopp</td>
-                                                            <td class="va">Yamaguchi, Kappei</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td >Zaraki, Kenpachi</td>
                                                             
                                                             
                                                         </tr>
                                                         <tr></tr>
                                                         <tr>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td> Tony Tony, Chopper</td>
-                                                            <td class="va">Ootani Ikue</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td> Urahara, keisuke</td>
                                                             <td></td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td >Brook</td>
-                                                            <td class="va">Cho</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td >Hitsugaya, Toushirou</td>
                                                             
                                                             
                                                         </tr>
                                                         <tr></tr>
                                                         <tr>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td>Franky</td>
-                                                            <td class="va">Yao, Kazuki</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td>Aizen Sousuke</td>
                                                             <td></td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td >Jinbe</td>
-                                                            <td class="va">Gouri, Daisuke</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td >Abarai, Renji</td>
                                                             
                                                             
                                                         </tr>

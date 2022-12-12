@@ -18,9 +18,9 @@ include("../../../login-signup/functions.php");
                 padding: 10px;
                 width: 100px;
                 color:white;
-                background-color: lightblue;
+                background-color: hotpink;
                 border: none;
-                
+                float: left;
 
             }
 
@@ -29,6 +29,16 @@ include("../../../login-signup/functions.php");
                 margin: auto;
                 width: 80%;
                 padding: 20px;
+            }
+            .back-btn{
+                padding: 10px;
+                width: 100px;
+                margin-left: 25px;
+                text-align: center;
+                color:white;
+                background-color: lightblue;
+                border: none;
+                float: left;
             }
 </style>
 
@@ -46,7 +56,11 @@ include("../../../login-signup/functions.php");
                 <input id="text" type="text" name="name" placeholder="Enter your name">
 
                 <br> <br>
-                <input id="button" type="submit" value="Submit ">
+                
+                <div class="btn-cont">
+                    <input id="button" type="submit" value="Submit ">
+                    <a class="back-btn" href="index-author.php"> Back </a>
+                </div>
                 <br>
                 <br>
 

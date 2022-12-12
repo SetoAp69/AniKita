@@ -7,7 +7,7 @@ $userRate = 0;
 $rate = 0;
 $rate_count = 0;
 $avg_rate =0;
-$query = "SELECT rate FROM rating_table WHERE username='$username' AND object_id='OB001' LIMIT 1";
+$query = "SELECT rate FROM rating_table WHERE username='$username' AND object_id='OB005' LIMIT 1";
 $result = mysqli_query($con,$query);
 if(mysqli_num_rows($result)>0){
     $rate = mysqli_fetch_assoc($result)['rate'];
@@ -16,7 +16,7 @@ if(mysqli_num_rows($result)>0){
 
 
 
-$query1 = "SELECT COUNT(rate) 'rate_count' FROM rating_table WHERE object_id='OB001' GROUP BY(object_id)";
+$query1 = "SELECT COUNT(rate) 'rate_count' FROM rating_table WHERE object_id='OB005' GROUP BY(object_id)";
 $result1 = mysqli_query($con, $query1);
 
 
@@ -25,7 +25,7 @@ if(mysqli_num_rows($result1)>0){
 }
 
 
-$query2 = "SELECT ROUND(AVG(rate),2) 'avg_rate' FROM rating_table WHERE object_id='OB001' GROUP BY(object_id)";
+$query2 = "SELECT ROUND(AVG(rate),2) 'avg_rate' FROM rating_table WHERE object_id='OB005' GROUP BY(object_id)";
 $result2 = mysqli_query($con, $query2);
 if(mysqli_num_rows($result2)>0){
     $avg_rate = mysqli_fetch_array($result2)['avg_rate'];
@@ -136,15 +136,6 @@ if(mysqli_num_rows($result2)>0){
         
 
     }
-    .cast-pic{
-        
-        width:50px;
-        height:71px;
-
-    }
-    .va{
-        text-align: right;
-    }
     .footer{
         position: relative;
         float:bottom;
@@ -175,7 +166,15 @@ if(mysqli_num_rows($result2)>0){
         width: 40px;
         height: 30px;
     }
+    .cast-pic{
+        
+        width:50px;
+        height:71px;
 
+    }
+    .va{
+        text-align: right;
+    }
     
     
 </style>
@@ -183,7 +182,7 @@ if(mysqli_num_rows($result2)>0){
 <!DOCTYPE HTML> 
 <html>
     <title>
-        One Piece
+        Kimi no Na wa.
     </title>
     <head>
 
@@ -207,7 +206,7 @@ if(mysqli_num_rows($result2)>0){
             <tbody>
                 <tr>
                     <td width="225" style="border-width:0 10px 0 0; border-color: black; " valign="top">
-                        <h2 class="title">One Piece</h3>
+                        <h2 class="title">Kimi no Na wa.</h3>
                         <div class="picture">
                             <img class="picture" src="Poster.jpg" alt="">
                         </div>
@@ -220,7 +219,7 @@ if(mysqli_num_rows($result2)>0){
                             </div>
                             <div class="colon">:</div>
                             <div class="information-value">
-                                1025/?
+                                1
                             </div>
                         </div>
                         <div class="information-box">
@@ -229,7 +228,7 @@ if(mysqli_num_rows($result2)>0){
                             </div>
                             <div class="colon">:</div>
                             <div class="information-value">
-                                20 October 1999
+                                26 Aug 2016
                             </div>
                         </div>
                         <div class="information-box">
@@ -238,7 +237,7 @@ if(mysqli_num_rows($result2)>0){
                             </div>
                             <div class="colon">:</div>
                             <div class="information-value">
-                                TOEI animation
+                                CoMix Wave Films
                             </div>
                         </div>
                         <div class="information-box">
@@ -247,7 +246,7 @@ if(mysqli_num_rows($result2)>0){
                             </div>
                             <div class="colon">:</div>
                             <div class="information-value">
-                                On-going
+                                Finished Airing
                             </div>
                         </div>
                         
@@ -282,7 +281,7 @@ if(mysqli_num_rows($result2)>0){
                                                        <td class="score"> <?=$avg_rate;?></td>
                                                        <td class="score" style="font-weight: lighter ;"> <?=$rate;?></td>  
                                                        <td > 
-                                                        <a href="../../../Pages/Anime/add.php?id=OB001" class="add-btn">+</a>
+                                                        <a href="../../../Pages/Anime/add.php?id=OB005" class="add-btn">+</a>
                                                          </td>
                                                     </tr>
                                                     <tr>
@@ -297,12 +296,13 @@ if(mysqli_num_rows($result2)>0){
                                         <td style="border-bottom: 2px solid #CDDEEE;">
                                             <div class="custom-heading"> Synopsis </div>
                                             <div class="synopsis-container"> 
-                                                <p>Gol D. Roger was known as the "Pirate King," the strongest and most infamous being to have sailed the Grand Line. The capture and execution of Roger by the World Government brought a change throughout the world. His last words before his death revealed the existence of the greatest treasure in the world, One Piece. It was this revelation that brought about the Grand Age of Pirates, men who dreamed of finding One Piece—which promises an unlimited amount of riches and fame—and quite possibly the pinnacle of glory and the title of the Pirate King.
-                                                </p> 
+                                                <p>Mitsuha Miyamizu, a high school girl, yearns to live the life of a boy in the bustling city of Tokyo—a dream that stands in stark contrast to her present life in the countryside. Meanwhile in the city, Taki Tachibana lives a busy life as a high school student while juggling his part-time job and hopes for a future in architecture.
+</p> 
                                                 <p>
-                                                Enter Monkey D. Luffy, a 17-year-old boy who defies your standard definition of a pirate. Rather than the popular persona of a wicked, hardened, toothless pirate ransacking villages for fun, Luffy's reason for being a pirate is one of pure wonder: the thought of an exciting adventure that leads him to intriguing people and ultimately, the promised treasure. Following in the footsteps of his childhood hero, Luffy and his crew travel across the Grand Line, experiencing crazy adventures, unveiling dark mysteries and battling strong enemies, all in order to reach the most coveted of all fortunes—One Piece.
-                                                </p>
-                                                <br>
+                                                One day, Mitsuha awakens in a room that is not her own and suddenly finds herself living the dream life in Tokyo—but in Taki's body! Elsewhere, Taki finds himself living Mitsuha's life in the humble countryside. In pursuit of an answer to this strange phenomenon, they begin to search for one another.
+</p>
+                                                <p> Kimi no Na wa. revolves around Mitsuha and Taki's actions, which begin to have a dramatic impact on each other's lives, weaving them into a fabric held together by fate and circumstance.</p>
+                                            <br>
                                             </div>
                                         </td>
                                         
@@ -327,13 +327,13 @@ if(mysqli_num_rows($result2)>0){
                                                         <col width="50px">
                                                         <tr >
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td>Monkey D. Luffy</td>
-                                                            <td class="va">Tanaka Mayumi</td>
+                                                            <td>Miyamizu, Mitsuha</td>
+                                                            <td class="va">Kamishiraishi,  Mone</td>
                                                             <td class="cast-pic"> <img class="cast-pic" src="Icon.png" alt=""></td>
                                                             <td></td>
                                                             <td class="cast-pic"> <img class="cast-pic" src="Icon.png" alt=""> </td>
-                                                            <td >Roronoa Zoro</td>
-                                                            <td class="va">Nakai, Kazuya</td>
+                                                            <td >Tachibana, Taki</td>
+                                                            <td class="va">Kamiki, Ryunosuke</td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
                                                             
                                                             
@@ -341,13 +341,13 @@ if(mysqli_num_rows($result2)>0){
                                                         <tr></tr>
                                                         <tr>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td>Sanji</td>
-                                                            <td class="va">Hirata, Hiroaki</td>
+                                                            <td>Yukino, Yukari</td>
+                                                            <td class="va">Hanazawa,  Kana</td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
                                                             <td></td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td >Nico, Robin</td>
-                                                            <td class="va"> Yamaguchi, Yuriko</td>
+                                                            <td >Miyamizu, Yotsuha</td>
+                                                            <td class="va"> Tani, Kanon</td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
                                                             
                                                             
@@ -355,13 +355,13 @@ if(mysqli_num_rows($result2)>0){
                                                         <tr></tr>
                                                         <tr>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td>Nami</td>
-                                                            <td class="va">Okamura, Akemi</td>
+                                                            <td>Teshidawara, Katsuhiko</td>
+                                                            <td class="va">Narita, Ryou</td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
                                                             <td></td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td >Usopp</td>
-                                                            <td class="va">Yamaguchi, Kappei</td>
+                                                            <td >Miyamizu, Hitoha</td>
+                                                            <td class="va">Ichihara, Etsuko</td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
                                                             
                                                             
@@ -369,13 +369,13 @@ if(mysqli_num_rows($result2)>0){
                                                         <tr></tr>
                                                         <tr>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td> Tony Tony, Chopper</td>
-                                                            <td class="va">Ootani Ikue</td>
+                                                            <td> Fuji, Tsukasa</td>
+                                                            <td class="va">Shimazaki, Nobunaga</td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
                                                             <td></td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td >Brook</td>
-                                                            <td class="va">Cho</td>
+                                                            <td >Natori, Sayaka</td>
+                                                            <td class="va">Yuuki, Aoi</td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
                                                             
                                                             
@@ -383,13 +383,13 @@ if(mysqli_num_rows($result2)>0){
                                                         <tr></tr>
                                                         <tr>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td>Franky</td>
-                                                            <td class="va">Yao, Kazuki</td>
+                                                            <td>Takagi, Shinta</td>
+                                                            <td class="va">Ishikawa, Kaito</td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
                                                             <td></td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td >Jinbe</td>
-                                                            <td class="va">Gouri, Daisuke</td>
+                                                            <td >Okudera, Miki</td>
+                                                            <td class="va">Nagasawa,  masami</td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
                                                             
                                                             

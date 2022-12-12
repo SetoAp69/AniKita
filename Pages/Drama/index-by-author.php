@@ -1,26 +1,27 @@
+
 <?php 
 session_start();
 include("../../login-signup/connection.php");
 include("../../login-signup/functions.php");
 
+
+
 $user_data =check_login($con);
-$username=$_SESSION["user_name"];
-$query ="SELECT name FROM user WHERE username='$username' LIMIT 1";
-$result=mysqli_query($con,$query);
-$name=mysqli_fetch_assoc($result); 
+if(isset($_GET['id'])){
+    $author_id = $_GET['id'];
+}
+$author_id1 = $author_id;
+$author_id = $author_id1;
 $dataLimit = 10;
-$username = $_SESSION['user_name'];
 $totalData = 0;
 $totalPage = 0;
 $activePage = (isset($_GET["page"])) ? $_GET["page"] : 1;
 $firstData = ($dataLimit) * ($activePage - 1);
-$result=mysqli_query($con,$query);
-$name=mysqli_fetch_assoc($result); 
 
 ?>
 <!DOCTYPE html>
 <style>
-        body{
+    body{
         margin : 0
         
     }
@@ -46,9 +47,59 @@ $name=mysqli_fetch_assoc($result);
         background-color: hotpink;
         color:white;
     }
+    .container{
+        position: relative;
+        width: 1200px;
+        height: 325px;
+        margin-left: 5%; auto;
+        background: lightslategray;
+    }
+    .container .box{
+        position: relative;
+        width: calc(240px - 30px);
+        height: calc(320px - 30px);
+        background: black;
+        float: left;
+        margin: 15px;
+        box-sizing: border-box;
+        overflow: hidden;
+        border-radius:5px;
+    }
+    .container .box .image{
+        position: absolute;
+        background: lightslategray;
+        transition: 0.5s;
+        z-index: 0;
+        width:210px ;
+        height:290px;
+    }
+    .container .box:hover .image{
+
+        opacity: 0.4;
+        
+
+    }
+    .container .box  .content{
+        position: absolute;
+        top: 230px;
+        height: calc(100%-100px);
+        text-align: Center;
+        padding: 20%;
+        box-sizing: border-box;
+        transition: 0.5s;
+
+    }
+    .container .box:hover .content{
+        top: 50px;
+        transition: 1.5s;
+        color: white;
+
+    }
     .footer{
         position: relative;
+        float:bottom;
         bottom: 0px;
+        
         width: 100%;
         height: 180px;
         background: cornflowerblue;
@@ -73,77 +124,6 @@ $name=mysqli_fetch_assoc($result);
     .footer .section .content .icon{
         width: 40px;
         height: 30px;
-    }
-    .profile{
-        
-        background: white;
-        width: 98%;
-        height: 250px;
-        margin: 10px;
-    }
-    .profile .content{
-        position: relative;
-        width: 100%;
-        height: 100%;
-        
-    }
-    .profile .content .pp{
-        
-    
-        background: gray;
-        float:left;
-        height: 200px;
-        width: 150px;
-        margin: 20px;
-        
-
-    }
-    .profile .content .bio{
-        float: left;
-        height: 100%;
-        width: 60%;
-        top: 50px;
-        margin-left: 30px;
-        
-        background: white;
-    }
-    #par{
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        color: black;
-        
-    }
-    #border{
-        width: 95%;
-        height:1px;
-        background: cornflowerblue;
-        margin-left: 35px;
-        
-    }
-    .objectButtonContainer{
-        
-        width: 400px;
-        height: 80px;
-        float: right;
-        margin-right: 2%;
-        margin-top: 20px;
-
-    }
-    .objectButtonContainer .objectButton{
-        background-color: cornflowerblue;
-        height: 70px;
-        width: 70px;
-        margin: 5px ;
-        float:left;
-        border-radius: 100%;
-        display: flex; 
-        justify-content: center;
-    }
-    .objectButtonContainer .objectButton:hover{
-        background-color:lightseagreen;
-        
-    }
-    #active{
-        background-color: hotpink;
     }
     table{
         table-layout: fixed;
@@ -209,14 +189,13 @@ $name=mysqli_fetch_assoc($result);
         border-radius: 5px;
 
     }
-
     .table-btn-col{
         text-align: left;
         margin-left: 5%;
         
 
     }
-    .table-btn{
+    .add-btn{
         margin-left: 18%;
         text-align: center;
         background-color: cornflowerblue;
@@ -254,100 +233,121 @@ $name=mysqli_fetch_assoc($result);
     .pageNav-Container{
         float:right;
     }
-    #active-cat{
-        background-color: hotpink;
-    }
-    
-
-
 </style>
 <html>
     <title> </title>
-    <head> </head>
+    <head> 
+        <!-- Bootstrap CSS -->
+<!-- Bootstrap DataTables CSS -->
+<!-- Jquery -->
+<script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<!-- Jquery DataTables -->
+<script type="text/javascript" language="javascript" src="http:////cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+<!-- Bootstrap dataTables Javascript -->
+<script type="text/javascript" language="javascript" src="http://cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+	$('#anime-table').dataTable();
+ } );
+</script>
+    </head>
     <body>
-        <div class="topnavigation">
+    <div class="topnavigation">
             <a href="../Dashboard/index.php">Home</a>
-            <a class="active" href="index.php" >Profile</a>
+            <a href="../MyProfile/index.php" >Profile</a>
             <a href="../Anime/index.php"> Anime</a>
             <a href="../Manga/index.php">Manga</a>
-            <a href="../Drama/index.php">Drama</a>
+            <a class="active"   href="../Drama/index.php">Drama</a>
             
             <div style="float: right;">
                 <a href="../../login-signup/logout.php">Logout</a>
             </div>
         </div>
-        <div class="profile">
-            <div class="content">
-                <div >
-                    <img class="pp" src="icon.png"></img>
-                </div>
-                <div id="par" class="bio"> 
-                    <br>
-                    <h2 > <?php echo $name['name']?></h2>
-                    
-                </div>
-                
+        <div style="padding-left: 5%; font-size:35px;">
+        Drama Recommendation
+    </div>
+    <div class="container">
+        <div class="box">
+            <img class="image" src="../../Object/3/OB011/Poster.jpg" alt="">
+            <div class="content"> 
+                <h3>Unnatural</h3>
+                <p>bla bla bla</p>
+                <a href="../../Object/3/OB011/index.php" style="color: white">Read More</a>
             </div>
             
+            
         </div>
-        <div id="border">
-
+        <div class="box">
+            <img class="image" src="../../Object/3/OB012/Poster.jpg" alt="">
+            <div class="content"> 
+                <h3>3 Nen A Gumi: Ima kara Mina-san wa, Hitojichi Desu</h3>
+                <p>bla bla bla</p>
+                <a href="../../Object/3/OB012/index.php" style="color: white">Read More</a>
+            </div>
+                
         </div>
-        <div class="objectButtonContainer">
-                <div class="objectButton">
-                    <a href="index.php"> <img style=" height: 35px; width: 35px ;  margin-top:45%; " src="../../Assets/AllObjectButton.png" alt=""> </a>
-                    
+        <div class="box">
+            <img class="image" src="../../Object/3/OB013/Poster.jpg" alt="">
+            <div class="content"> 
+                <h3>Mother</h3>
+                <p>bla bla bla</p>
+                <a href="../../Object/3/OB013/index.php" style="color: white">Read More</a>
+            </div>
                 
-                </div>            
-                <div class="objectButton"id="active-cat">
-                    <a href="index-a.php"><img style=" height: 35px; width: 35px ;  margin-top:45%; " src="../../Assets/AnimeButton.png" alt=""> </a>
-                    
-                
-                </div>            
-                <div class="objectButton">
-                    <a href="index-m.php"><img style=" height: 35px; width: 35px ;  margin-top:45%; " src="../../Assets/MangaButton.png" alt=""></a>
-                    
-                
-                </div>
-                <div class="objectButton">
-                    <a href="index-d.php"> <img style=" height: 35px; width: 35px ;  margin-top:45%; " src="../../Assets/DramaButton.png" alt=""></a>
-                    
-                
-                </div>
-
-
         </div>
+        <div class="box">
+            <img class="image" src="../../Object/3/OB014/Poster.jpg" alt="">
+            <div class="content"> 
+                <h3>Soredemo Ikite Yuku</h3>
+                <p>bla bla bla</p>
+                <a href="../../Object/3/OB014/index.php" style="color: white">Read More</a>
+            </div>
+                
+        </div>
+        <div class="box">
+            <img class="image" src="../../Object/3/OB015/Poster.jpg" alt="">
+            <div class="content"> 
+                <h3>Juhan Shuttai!</h3>
+                <p>bla bla bla</p>
+                <a href="../../Object/3/OB015/index.php" style="color: white">Read More</a>
+            </div>
+                
+        </div>
+    </div>
+
         <div class="searchBarContainer">
             <form action="" method="GET" class="searchBar" >
                 <div class="searchBar">
 
                     <input type="text" name='search' value="<?php if(isset($_GET['search']) ){echo $_GET['search'];}?>" class="form-control" placeholder="Search">
+                    <input type="hidden" name="id" value="<?=$author_id;?>">
                     <button type="submit" class="searchButton">Search</button>
                 </div>  
 
             </form>
             
         </div>
-        <br>  <br><br>  <br><br>  <br><br>  <br>
-        
+        <br>  <br><br>  <br><br>  <br>  <br>
+
 
         <div>
             <div>
                 <div>
-                    <table>
+                    <table id="anime-table">
                         <thead>
-                                <col width="10%"  />
+                                <col width="5%"  />
                                 <col width="30%"/>
-                                <col width="5%"/>
                                 <col width="20%"/>
-                                <col width="15%"/>
-                                
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="25%"/>
                             <tr>
                                 <th>ID</th>
                                 <th> Name </th>
-                                <th> Type </th>
-                                <th> Author </th>
-                                <th> Your rate </th>
+                                <th> Director </th>
+                                <th> Average Rating </th>
+                                <th>Total Rate Count</th>
+                                
                                 <th></th>
                             </tr>
                         </thead>
@@ -356,15 +356,18 @@ $name=mysqli_fetch_assoc($result);
                             if(isset($_GET['search']))
                             {
                                 $filtervalues=$_GET['search'];
-                                
-                                $totalSearchData = mysqli_query($con,"SELECT* FROM rating_table JOIN object USING (object_id)
-                                 WHERE username='$username' AND object.name LIKE '%$filtervalues%' AND object.type_id='1'");
+                                $totalSearchData = mysqli_query($con, "SELECT* from object WHERE author_id='$author_id' AND name LIKE '%$filtervalues%'");
 
-                                $searchQuery="SELECT o.object_id 'id', o.name, t.name 'type', a.name 'author', r.rate, t.type_id 't_id',a.author_id 
-                                FROM user u, object o, author a, type_of_object t, rating_table r 
-                                WHERE u.username='$username' AND o.object_id=r.object_id  AND o.type_id='1'
-                                AND t.type_id=o.type_id AND a.author_id=o.author_id AND u.username=r.username AND o.name 
-                                LIKE'%$filtervalues%' ORDER BY o.object_id LIMIT $firstData,$dataLimit";
+                                $searchQuery="SELECT object.name 'name', object.type_id 't_id', author.author_id,
+                                object.object_id 'id', author.name 'Director',  ROUND(AVG(rating_table.rate),2) 'avg_rate',
+                                 COUNT(rating_table.rate) 'rate_count'
+                                FROM 
+                                author JOIN object USING(author_id)
+                                LEFT JOIN 
+                                rating_table USING(object_id) 
+                                WHERE object.type_id='3' AND object.name LIKE '%$filtervalues%' 
+                                AND author.author_id='$author_id'
+                                GROUP BY (object.object_id) ORDER BY object_id";
                                 $searchResult=mysqli_query($con,$searchQuery);
 
                                 $totalData = mysqli_num_rows($totalSearchData);
@@ -376,42 +379,48 @@ $name=mysqli_fetch_assoc($result);
                                         <tr>
                                             <td><?=$rows['id'];?> </td>
                                             <td> 
-                                                <a style="color: black; font-weight: bold;" href="../../Object/<?=$rows['t_id'];?>/<?=$rows['id'];?>/index.php"> 
+                                                <a style="color: black; font-weight: bold;" href="../../Object/<?=$rows['t_id'];?>/<?=$rows['id'];?>/index.php">
                                                  <?=$rows['name'];?> 
                                                 </a>  
                                             </td>
-                                            <td><?=$rows['type'];?> </td>
-                                            <td> <?=$rows['author'];?></td>
-                                            <td><?=$rows['rate'];?> </td>
+                                            <td>
+                                                 <a style="color: black; font-weight: bold; " href="index-by-author.php? id=<?=$rows['author_id'];?>"> 
+                                                 <?=$rows['Director'];?> 
+                                                </a> 
+                                            </td>
+                                            <td><?=$rows['avg_rate'];?> </td>
+                                            <td><?=$rows['rate_count'];?> </td>
                                             <td class="table-btn-col">
-                                                <div class="table-btn">
-                                                    <a class="ref" href="edit.php? id=<?=$rows['id'];?>">edit </a> 
-                                                    
-                                                
+                                                <div class="add-btn">
+                                                    <a class="ref" href="add.php? id=<?=$rows['id'];?>">add </a> 
+                    
                                                 </div>
-                                                <div class="table-btn-del">
-                                                    <a class="ref" href="delete.php? id=<?=$rows['id'];?>"> delete</a>
-
-                                                </div>
+                        
                                             </td>
                                         </tr>
+
                                         <?php
                                     }
 
                                 }
-
                             }
                             else{
-                                //diplay all data
+                                //display all data
                                 ?> <?php
-                                $queryx="SELECT* FROM rating_table JOIN object USING(object_id) where username='$username' AND object.type_id='1' ";
-                                $count_result=mysqli_query($con,$queryx);
-                                $totalData = mysqli_num_rows($count_result);
+                                $queryx = "SELECT* FROM object WHERE author_id='$author_id';";
+                                $result1=mysqli_query($con,$queryx);
+                                $totalData = mysqli_num_rows($result1);
                                 $totalPage = ceil($totalData / $dataLimit);
-                                $query1 = "SELECT o.object_id 'id', o.name, t.name 'type', a.name 'author', r.rate ,t.type_id 't_id',a.author_id
-                                FROM user u, object o, author a, type_of_object t, rating_table r 
-                                WHERE u.username='$username' AND o.object_id=r.object_id AND t.type_id=o.type_id  AND o.type_id='1'
-                                AND a.author_id=o.author_id AND u.username=r.username ORDER BY o.object_id LIMIT $firstData,$dataLimit";
+                                $query1="SELECT object.name 'name', object.type_id 't_id' ,object.object_id 'id', 
+                                author.name 'Director',  author.author_id,
+                                ROUND(AVG(rating_table.rate),2) 'avg_rate', COUNT(rating_table.rate) 'rate_count'
+                                FROM 
+                                author JOIN object USING(author_id)
+                                LEFT JOIN 
+                                rating_table USING(object_id) 
+                                WHERE object.type_id='3' AND
+                                author.author_id='$author_id'
+                                GROUP BY (object.object_id) ";
                                 $result=mysqli_query($con,$query1);
 
                                 if(mysqli_num_rows($result)>0){
@@ -419,24 +428,27 @@ $name=mysqli_fetch_assoc($result);
                                         ?>
                                         <tr>
                                             <td><?=$rows['id'];?> </td>
-                                            <td> 
+                                            <td>
                                                 <a style="color: black; font-weight: bold;" href="../../Object/<?=$rows['t_id'];?>/<?=$rows['id'];?>/index.php"> 
-                                                 <?=$rows['name'];?> 
-                                                </a>  
+                                                    <?=$rows['name'];?>
+                                                 </a>  
                                             </td>
-                                            <td><?=$rows['type'];?> </td>
-                                            <td> <?=$rows['author'];?></td>
-                                            <td><?=$rows['rate'];?> </td>
+                                            <td>
+                                                 <a style="color: black; font-weight: bold; " href="index-by-author.php? id=<?=$rows['author_id'];?>"> 
+                                                 <?=$rows['Director'];?> 
+                                                </a> 
+                                            </td>
+                                            <td><?=$rows['avg_rate'];?> </td>
+                                            <td><?=$rows['rate_count'];?> </td>
                                             <td class="table-btn-col">
-                                                <div class="table-btn">
-                                                    <a class="ref" href="edit.php? id=<?=$rows['id'];?>">edit </a> 
+                                                <div class="add-btn">
+                                                    <a class="ref" href="add.php? id=<?=$rows['id'];?>">add </a> 
                                                     
                                                 
                                                 </div>
-                                                <div class="table-btn-del">
-                                                    <a class="ref" href="delete.php? id=<?=$rows['id'];?>"> delete</a>
 
-                                                </div>
+                                                
+                                                
                                             </td>
                                         </tr>
 
@@ -445,13 +457,24 @@ $name=mysqli_fetch_assoc($result);
                                     }
                                 }
 
+
+
+
+                                
+
                                 ?>
                                 <?php
                             }
+
+
                             ?>
+                            
+
                         </tbody>
+
                     </table>
                 </div>
+                <br>
                 <div class="pageNav-Container">
                 <?php
                         for ($i = 1; $i <= $totalPage;$i++) {
@@ -459,13 +482,13 @@ $name=mysqli_fetch_assoc($result);
                                 if(isset($_GET['search'])){
                                     $filtervalues = $_GET['search'];
                                     ?>
-                                    <a class="pageNav" id="active"  href="?page=<?= $i; ?>&search=<?=$filtervalues;?>"> <?=$i;?></a>
+                                    <a class="pageNav" id="active"  href="?page=<?= $i; ?>&search=<?=$filtervalues;?>&id=<?=$author_id;?>"> <?=$i;?></a>
                                     <?php
     
                                 }
                                 else{
                                     ?>
-                                    <a class="pageNav" id="active" href="?page=<?=$i;?>"><?= $i;?></a>
+                                    <a class="pageNav" id="active" href="?page=<?=$i;?>&id=<?=$author_id;?>"><?= $i;?></a>
     
                                     <?php
                                 }
@@ -475,14 +498,14 @@ $name=mysqli_fetch_assoc($result);
                                 if(isset($_GET['search'])){
                                     $filtervalues = $_GET['search'];
                                     ?>
-                                    <a class="pageNav" href="?page=<?= $i; ?>&search=<?=$filtervalues;?>"> <?=$i;?></a>
+                                    <a class="pageNav" href="?page=<?= $i; ?>&search=<?=$filtervalues;?>&id=<?=$author_id;?>"> <?=$i;?></a>
                                     <?php
                                     
     
                                 }
                                 else{
                                     ?>
-                                    <a class="pageNav" href="?page=<?=$i;?>"><?= $i;?></a>
+                                    <a class="pageNav" href="?page=<?=$i;?>&id=<?=$author_id;?>"><?= $i;?></a>
     
                                     <?php
                                 }
@@ -546,26 +569,18 @@ $name=mysqli_fetch_assoc($result);
             </div>
         </div>
     </div>
-    
-    <script>
-        function openForm(){
-            
-            document.getElementById("rate_form").style.display="block";
-            
-        }
-        function closeFrom(){
-            document.getElementById("rate_form").style.display="none";
-        }
-        function getID($rowsid){
-            $id=$rowsid;
-        }
-        //window.location.reload(true);
-        window.onload = function() {
-            if(!window.location.hash) {
-                window.location = window.location + '#loaded';
-                window.location.reload();
-            }
-        }
-    </script>
     </body>
 </html>
+
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script> 
+$(document).ready(function () {
+    $('#anime-table').dataTable( {
+        "pagingType": "full_numbers"
+    } );
+    $.fn.DataTable.ext.pager.numbers_length = 9;
+});
+
+
+</script>

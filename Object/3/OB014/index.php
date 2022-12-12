@@ -7,7 +7,7 @@ $userRate = 0;
 $rate = 0;
 $rate_count = 0;
 $avg_rate =0;
-$query = "SELECT rate FROM rating_table WHERE username='$username' AND object_id='OB001' LIMIT 1";
+$query = "SELECT rate FROM rating_table WHERE username='$username' AND object_id='OB014' LIMIT 1";
 $result = mysqli_query($con,$query);
 if(mysqli_num_rows($result)>0){
     $rate = mysqli_fetch_assoc($result)['rate'];
@@ -16,7 +16,7 @@ if(mysqli_num_rows($result)>0){
 
 
 
-$query1 = "SELECT COUNT(rate) 'rate_count' FROM rating_table WHERE object_id='OB001' GROUP BY(object_id)";
+$query1 = "SELECT COUNT(rate) 'rate_count' FROM rating_table WHERE object_id='OB014' GROUP BY(object_id)";
 $result1 = mysqli_query($con, $query1);
 
 
@@ -25,7 +25,7 @@ if(mysqli_num_rows($result1)>0){
 }
 
 
-$query2 = "SELECT ROUND(AVG(rate),2) 'avg_rate' FROM rating_table WHERE object_id='OB001' GROUP BY(object_id)";
+$query2 = "SELECT ROUND(AVG(rate),2) 'avg_rate' FROM rating_table WHERE object_id='OB014' GROUP BY(object_id)";
 $result2 = mysqli_query($con, $query2);
 if(mysqli_num_rows($result2)>0){
     $avg_rate = mysqli_fetch_array($result2)['avg_rate'];
@@ -145,6 +145,18 @@ if(mysqli_num_rows($result2)>0){
     .va{
         text-align: right;
     }
+    .title{
+        font-weight: bold;
+        font-size: 30px;
+    }
+    .cast{
+        color:cornflowerblue;
+        font-weight:bold;
+        font-size:20px;
+    }
+    .role{
+        font-size:15px;
+    }
     .footer{
         position: relative;
         float:bottom;
@@ -183,7 +195,7 @@ if(mysqli_num_rows($result2)>0){
 <!DOCTYPE HTML> 
 <html>
     <title>
-        One Piece
+        Soredemo, Ikite Yuku
     </title>
     <head>
 
@@ -192,9 +204,9 @@ if(mysqli_num_rows($result2)>0){
     <div class="topnavigation">
             <a href="../../../Pages/Dashboard/index.php">Home</a>
             <a href="../../../Pages/MyProfile/index.php" >Profile</a>
-            <a class="active"  href="../../../Pages/Anime/index.php"> Anime</a>
+            <a href="../../../Pages/Anime/index.php"> Anime</a>
             <a href="../../../Pages/Manga/index.php">Manga</a>
-            <a href="../../../Pages/Drama/index.php">Drama</a>
+            <a class="active"  href="../../../Pages/Drama/index.php">Drama</a>
             
             <div style="float: right;">
                 <a href="../../../login-signup/logout.php">Logout</a>
@@ -206,11 +218,12 @@ if(mysqli_num_rows($result2)>0){
         <table style="border:0;" cellpading="0" cellspacing="0" width="100%">
             <tbody>
                 <tr>
-                    <td width="225" style="border-width:0 10px 0 0; border-color: black; " valign="top">
-                        <h2 class="title">One Piece</h3>
+                    <td width="260" style="border-width:0 10px 0 0; border-color: black; " valign="top">
+                        <h2 class="title">Soredemo, Ikite Yuku</h3>
                         <div class="picture">
                             <img class="picture" src="Poster.jpg" alt="">
                         </div>
+                        <br>
                         <div class="custom-heading" style="font-weight: bold;">
                             Information
                         </div>
@@ -220,25 +233,25 @@ if(mysqli_num_rows($result2)>0){
                             </div>
                             <div class="colon">:</div>
                             <div class="information-value">
-                                1025/?
+                                11
                             </div>
                         </div>
                         <div class="information-box">
                             <div class="information-data"> 
-                                Release 
+                                Released 
                             </div>
                             <div class="colon">:</div>
                             <div class="information-value">
-                                20 October 1999
+                                7 Jul, 2011
                             </div>
                         </div>
                         <div class="information-box">
                             <div class="information-data"> 
-                                Studio
+                                Director
                             </div>
                             <div class="colon">:</div>
                             <div class="information-value">
-                                TOEI animation
+                                Ishizaka, Reieko
                             </div>
                         </div>
                         <div class="information-box">
@@ -247,7 +260,7 @@ if(mysqli_num_rows($result2)>0){
                             </div>
                             <div class="colon">:</div>
                             <div class="information-value">
-                                On-going
+                                Finished
                             </div>
                         </div>
                         
@@ -282,7 +295,7 @@ if(mysqli_num_rows($result2)>0){
                                                        <td class="score"> <?=$avg_rate;?></td>
                                                        <td class="score" style="font-weight: lighter ;"> <?=$rate;?></td>  
                                                        <td > 
-                                                        <a href="../../../Pages/Anime/add.php?id=OB001" class="add-btn">+</a>
+                                                        <a href="../../../Pages/Drama/add.php?id=OB014" class="add-btn">+</a>
                                                          </td>
                                                     </tr>
                                                     <tr>
@@ -297,11 +310,10 @@ if(mysqli_num_rows($result2)>0){
                                         <td style="border-bottom: 2px solid #CDDEEE;">
                                             <div class="custom-heading"> Synopsis </div>
                                             <div class="synopsis-container"> 
-                                                <p>Gol D. Roger was known as the "Pirate King," the strongest and most infamous being to have sailed the Grand Line. The capture and execution of Roger by the World Government brought a change throughout the world. His last words before his death revealed the existence of the greatest treasure in the world, One Piece. It was this revelation that brought about the Grand Age of Pirates, men who dreamed of finding One Piece—which promises an unlimited amount of riches and fame—and quite possibly the pinnacle of glory and the title of the Pirate King.
-                                                </p> 
                                                 <p>
-                                                Enter Monkey D. Luffy, a 17-year-old boy who defies your standard definition of a pirate. Rather than the popular persona of a wicked, hardened, toothless pirate ransacking villages for fun, Luffy's reason for being a pirate is one of pure wonder: the thought of an exciting adventure that leads him to intriguing people and ultimately, the promised treasure. Following in the footsteps of his childhood hero, Luffy and his crew travel across the Grand Line, experiencing crazy adventures, unveiling dark mysteries and battling strong enemies, all in order to reach the most coveted of all fortunes—One Piece.
-                                                </p>
+                                                Fukami Hiroki's younger sister was killed by a friend. Hiroki then meets the killer's sister, Toyama Futaba, 15 years after the incident. Both of their families have been burdened with grief, but through their meeting they struggle to find a brighter tomorrow. 
+                                                </p> 
+                                                
                                                 <br>
                                             </div>
                                         </td>
@@ -311,86 +323,93 @@ if(mysqli_num_rows($result2)>0){
                                     </tr>
                                     <tr>
                                         <td>
-                                            <div class="custom-heading"> Character & Voice Actors</div>
+                                            <div class="custom-heading"> Cast & Characters </div>
                                             <br>
                                             <div>
                                                 <table>
                                                     <tbody>
                                                         <col width="50px">
-                                                        <col width="150px">
-                                                        <col width="150px">
-                                                        <col width="50px">
+                                                        <col width="600px">
                                                         <col width="10px">
                                                         <col width="50px">
-                                                        <col width="150px">
-                                                        <col width="150px">
-                                                        <col width="50px">
+                                                        <col width="600px">
+                                                        
                                                         <tr >
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td>Monkey D. Luffy</td>
-                                                            <td class="va">Tanaka Mayumi</td>
-                                                            <td class="cast-pic"> <img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td>
+                                                                <div class="cast">Nagayama, Eita</div>
+                                                                <div class="role">Fukami, hiroki</div>
+                                                            </td>
                                                             <td></td>
                                                             <td class="cast-pic"> <img class="cast-pic" src="Icon.png" alt=""> </td>
-                                                            <td >Roronoa Zoro</td>
-                                                            <td class="va">Nakai, Kazuya</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td>
+                                                                <div class="cast">Danta, yasunori</div>
+                                                                <div class="role">Higaki, Seiji </div>
+                                                            </td>
                                                             
                                                             
                                                         </tr>
                                                         <tr></tr>
                                                         <tr>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td>Sanji</td>
-                                                            <td class="va">Hirata, Hiroaki</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td>
+                                                                <div class="cast">Mitsushima,  hikari</div>
+                                                                <div class="role">toyama, Futaba</div>
+                                                            </td>
                                                             <td></td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td >Nico, Robin</td>
-                                                            <td class="va"> Yamaguchi, Yuriko</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td>
+                                                                <div class="cast">Otake, Shinobu</div>
+                                                                <div class="role">Nomoto, Kyoko</div>
+                                                            </td>
                                                             
                                                             
                                                         </tr>
                                                         <tr></tr>
                                                         <tr>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td>Nami</td>
-                                                            <td class="va">Okamura, Akemi</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td>
+                                                                <div class="cast">Tanaka, kei</div>
+                                                                <div class="role">Higaki,  Kohei</div>
+                                                            </td>
                                                             <td></td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td >Usopp</td>
-                                                            <td class="va">Yamaguchi, Kappei</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td>
+                                                                <div class="cast">Kazama, Shunsuke</div>
+                                                                <div class="role">Misaki, Fumiya</div>
+                                                            </td>
                                                             
                                                             
                                                         </tr>
                                                         <tr></tr>
                                                         <tr>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td> Tony Tony, Chopper</td>
-                                                            <td class="va">Ootani Ikue</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td>
+                                                                <div class="cast">Murakawa, Eri</div>
+                                                                <div class="role">Hidaki, Yuka</div>
+                                                            </td>
                                                             <td></td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td >Brook</td>
-                                                            <td class="va">Cho</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td>
+                                                                <div class="cast">Tokito,  Saburo</div>
+                                                                <div class="role">Misaki, Shunsuke</div>
+                                                            </td>
                                                             
                                                             
                                                         </tr>
                                                         <tr></tr>
                                                         <tr>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td>Franky</td>
-                                                            <td class="va">Yao, Kazuki</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td>
+                                                                <div class="cast">Fubuki, jun</div>
+                                                                <div class="role">Toyama, Takami</div>
+                                                            </td>
                                                             <td></td>
                                                             <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
-                                                            <td >Jinbe</td>
-                                                            <td class="va">Gouri, Daisuke</td>
-                                                            <td class="cast-pic"><img class="cast-pic" src="Icon.png" alt=""></td>
+                                                            <td>
+                                                                <div class="cast">Fukuda, Mayuko</div>
+                                                                <div class="role">Toyama, Akari</div>
+                                                            </td>
                                                             
                                                             
                                                         </tr>
@@ -457,7 +476,6 @@ if(mysqli_num_rows($result2)>0){
             </div>
         </div>
     </div>
-    
         
     </body>
 </html>

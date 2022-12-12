@@ -12,6 +12,11 @@ if(isset($_GET['id'])){
 }
 $author_id1 = $author_id;
 $author_id = $author_id1;
+$dataLimit = 10;
+$totalData = 0;
+$totalPage = 0;
+$activePage = (isset($_GET["page"])) ? $_GET["page"] : 1;
+$firstData = ($dataLimit) * ($activePage - 1);
 
 ?>
 <!DOCTYPE html>
@@ -210,6 +215,24 @@ $author_id = $author_id1;
     .ref{
         color: white;
     }
+    .pageNav{
+        padding: 6px;
+        background-color: hotpink;
+        float:left;
+        margin-left:5px;
+        color:white;
+        text-decoration: none;
+
+    }
+    .pageNav :hover{
+        background-color:grey;
+    }
+    #active{
+        background-color: cornflowerblue;
+    }
+    .pageNav-Container{
+        float:right;
+    }
 </style>
 <html>
     <title> </title>
@@ -240,6 +263,9 @@ $author_id = $author_id1;
                 <a href="../../login-signup/logout.php">Logout</a>
             </div>
         </div>
+        <br>
+        <br>
+        <br>
         <div style="padding-left: 5%; font-size:35px;">
             Anime Recommendation
         </div>
@@ -310,6 +336,7 @@ $author_id = $author_id1;
                 <div class="searchBar">
 
                     <input type="text" name='search' value="<?php if(isset($_GET['search']) ){echo $_GET['search'];}?>" class="form-control" placeholder="Search">
+                    <input type="hidden" name="id" value="<?=$author_id;?>">
                     <button type="submit" class="searchButton">Search</button>
                 </div>  
 
@@ -345,6 +372,8 @@ $author_id = $author_id1;
                             if(isset($_GET['search']))
                             {
                                 $filtervalues=$_GET['search'];
+                                $totalSearchData = mysqli_query($con, "SELECT* from object WHERE author_id='$author_id' AND name LIKE '%$filtervalues%'");
+
                                 $searchQuery="SELECT object.name 'name', object.type_id 't_id', author.author_id,
                                 object.object_id 'id', author.name 'Studio',  ROUND(AVG(rating_table.rate),2) 'avg_rate',
                                  COUNT(rating_table.rate) 'rate_count'
@@ -356,6 +385,9 @@ $author_id = $author_id1;
                                 AND author.author_id='$author_id'
                                 GROUP BY (object.object_id) ORDER BY object_id";
                                 $searchResult=mysqli_query($con,$searchQuery);
+
+                                $totalData = mysqli_num_rows($totalSearchData);
+                                $totalPage = ceil($totalData / $dataLimit);
 
                                 if(mysqli_num_rows($searchResult)>0){
                                     foreach ($searchResult as $rows) {
@@ -390,7 +422,11 @@ $author_id = $author_id1;
                             }
                             else{
                                 //display all data
-                                ?> <?php 
+                                ?> <?php
+                                $queryx = "SELECT* FROM object WHERE author_id='$author_id';";
+                                $result1=mysqli_query($con,$queryx);
+                                $totalData = mysqli_num_rows($result1);
+                                $totalPage = ceil($totalData / $dataLimit);
                                 $query1="SELECT object.name 'name', object.type_id 't_id' ,object.object_id 'id', 
                                 author.name 'Studio',  author.author_id,
                                 ROUND(AVG(rating_table.rate),2) 'avg_rate', COUNT(rating_table.rate) 'rate_count'
@@ -454,53 +490,94 @@ $author_id = $author_id1;
 
                     </table>
                 </div>
+                <br>
+                <div class="pageNav-Container">
+                <?php
+                        for ($i = 1; $i <= $totalPage;$i++) {
+                            if($i==$activePage){
+                                if(isset($_GET['search'])){
+                                    $filtervalues = $_GET['search'];
+                                    ?>
+                                    <a class="pageNav" id="active"  href="?page=<?= $i; ?>&search=<?=$filtervalues;?>&id='<?=$author_id;?>"> <?=$i;?></a>
+                                    <?php
+    
+                                }
+                                else{
+                                    ?>
+                                    <a class="pageNav" id="active" href="?page=<?=$i;?>&id=<?=$author_id;?>"><?= $i;?></a>
+    
+                                    <?php
+                                }
+
+                            }
+                            else{
+                                if(isset($_GET['search'])){
+                                    $filtervalues = $_GET['search'];
+                                    ?>
+                                    <a class="pageNav" href="?page=<?= $i; ?>&search=<?=$filtervalues;?>&id=<?=$author_id;?>"> <?=$i;?></a>
+                                    <?php
+                                    
+    
+                                }
+                                else{
+                                    ?>
+                                    <a class="pageNav" href="?page=<?=$i;?>&id=<?=$author_id;?>"><?= $i;?></a>
+    
+                                    <?php
+                                }
+
+                            }
+                            
+
+                        }
+                        
+
+                    ?>
+
+                </div>
                 
             </div>
         </div>
 
         <br>
         <br>
+        <br>
+        <br>
+        <br>
 
-
-
-
-        <br>  <br><br>  <br><br>  <br><br>  <br>
-        <br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br><br>  <br>
         <div class="footer">
         <div class="section"> 
             <div class="content">
-                <h2>Follow Us on </h2>
+                <img src="" alt="">
+
+            </div>
+        </div>
+        <div class="section">
+            <div class="content">
+                <h3>Follow Us On</h3>
                 <a href=""style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
                 <a href=""style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
                 <a href=""style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
                 <a href="" style="margin:5px;">
-                    <img class="icon" src="../discord.png" alt="">
+                    <img class="icon" src="../../Assets/discord.png" alt="">
                 </a>
             </div>
         </div>
         <div class="section">
             <div class="content">
-                <h3>Follow Us on </h3>
-            </div>
-        </div>
-        
-        
-
-        <div class="section">
-            <div class="content">
-                <h3>Follow Us on </h3>
+                <h3>More About Us </h3>
                 <div style="float: left;">
                     <a href=""style="color:white">About</a> <br> <br>
                     <a href="" style="color:white">Faq</a><br> <br>
                     <a href="" style="color:white">Support</a><br> <br>
                 </div>
-                <div style="float:left; margin-left:1px;">
+                <div style="float:left; margin-left:20px;">
                     <a href="" style="color:white">Privacy</a><br> <br>
                     <a href="" style="color:white">Cookie</a><br> <br>
                 </div>

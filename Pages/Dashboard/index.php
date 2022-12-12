@@ -149,61 +149,60 @@ session_start();
         Anime Recommendation
     </div>
     <div class="container">
-        <div class="box">
+            <div class="box">
+                
+                    <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB001/One-piece-Poster.jpg" alt="">
+                    <div class="content"> 
+                        <h3>One Piece</h3>
+                        
+                        <a  href="../../Object/1/OB001" style="color: white;">Read More</a>
+
+                    </div>
+                
             
-                <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB001/One-piece-Poster.jpg" alt="">
-                <div class="content"> 
-                    <h3>One Piece</h3>
-                    <p> bla bla bla </p>
-                    <a  href=" login.php" style="color: white;">Read More</a>
-
-                </div>
-            
-        
-        </div>
-        <div class="box">
+            </div>
+            <div class="box">
+                            
+                    <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB002/Poster.jpg" alt="">
+                    <div class="content"> 
+                        <h3>Jujutsu Kaisen</h3>
                         
-                <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB002/Poster.jpg" alt="">
-                <div class="content"> 
-                    <h3>Jujutsu Kaisen</h3>
-                    <p> bla bla bla </p>
-                    <a  href=" login.php" style="color: white;">Read More</a>
+                        <a  href="../../Object/1/OB002" style="color: white;">Read More</a><
 
-                </div>
-            
+                    </div>
+                
 
-        </div>
-        <div class="box">
-                        
-        <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB003/Poster.jpg" alt="">
-                <div class="content"> 
-                    <h3>Tenki No Ko</h3>
-                    <p> bla bla bla </p>
-                    <a  href=" login.php" style="color: white;">Read More</a>
+            </div>
+            <div class="box">
+                            
+            <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB003/Poster.jpg" alt="">
+                    <div class="content"> 
+                        <h3>Tenki No Ko</h3>
+                        <a  href="../../Object/1/OB003" style="color: white;">Read More</a>
 
-                </div>
+                    </div>
 
-        </div>
-        <div class="box">
-                        
-                <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB004/Poster.jpg" alt="">
-                <div class="content"> 
-                    <h3>Neon Genesis Evangelion</h3>
-                    <p> bla bla bla </p>
-                    <a  href=" login.php" style="color: white;">Read More</a>
+            </div>
+            <div class="box">
+                            
+                    <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB004/Poster.jpg" alt="">
+                    <div class="content"> 
+                        <h3>Neon Genesis Evangelion</h3>
+                        <a  href="../../Object/1/OB004" style="color: white;">Read More</a>
 
-                </div>
+                    </div>
 
-        </div>
-        <div class="box">
-                        
-        <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB005/Poster.jpg" alt="">
-                <div class="content"> 
-                    <h3>Kimi No Nawa</h3>
-                    <p> bla bla bla </p>
-                    <a  href=" login.php" style="color: white;">Read More</a>
+            </div>
+            <div class="box">
+                            
+            <img class="image" style="width:210px ;height:290px;" src="../../Object/1/OB005/Poster.jpg" alt="">
+                    <div class="content"> 
+                        <h3>Kimi No Nawa</h3>
+                        <a  href="../../Object/1/OB005" style="color: white;">Read More</a>
+                    </div>
 
-                </div>
+            </div>
+
 
         </div>
 
@@ -218,7 +217,6 @@ session_start();
             <img class="image" src="../../Object/2/OB006/Poster.jpg" alt="">
             <div class="content"> 
                 <h3>Bleach</h3>
-                <p>bla bla bla</p>
                 <a href="../../Object/2/OB006/index.php" style="color: white">Read More</a>
             </div>
         </div>
@@ -226,7 +224,6 @@ session_start();
             <img class="image" src="../../Object/2/OB007/Poster.jpg" alt="">
             <div class="content"> 
                 <h3>Shounen No Abyss</h3>
-                <p>bla bla bla</p>
                 <a href="../../Object/2/OB007/index.php" style="color: white">Read More</a>
             </div>
             
@@ -235,7 +232,6 @@ session_start();
             <img class="image" src="../../Object/2/OB008/Poster.jpg" alt="">
             <div class="content"> 
                 <h3>Great Teacher Onizuka</h3>
-                <p>bla bla bla</p>
                 <a href="../../Object/2/OB008/index.php" style="color: white">Read More</a>
             </div>  
             
@@ -244,7 +240,6 @@ session_start();
             <img class="image" src="../../Object/2/OB009/Poster.jpg" alt="">
             <div class="content"> 
                 <h3>Fairy Tail</h3>
-                <p>bla bla bla</p>
                 <a href="../../Object/2/OB009/index.php" style="color: white">Read More</a>
             </div>
             
@@ -253,7 +248,6 @@ session_start();
             <img class="image" src="../../Object/2/OB010/Poster.jpg" alt="">
             <div class="content"> 
                 <h3>Made In Abyss</h3>
-                <p>bla bla bla</p>
                 <a href="../../Object/2/OB010/index.php" style="color: white">Read More</a>
             </div>
             

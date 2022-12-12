@@ -7,6 +7,10 @@ session_start();
     if(isset($_GET['id'])){
         $id=$_GET['id'];
         $admin_id=$_SESSION['admin_id'];
+        $queryName = "SELECT name FROM author WHERE author_id='$id' LIMIT 1";
+        $nameResult = mysqli_query($con, $queryName);
+        $displayName = mysqli_fetch_assoc($nameResult)['name'];
+       
         
         if($_SERVER['REQUEST_METHOD']=='POST'){
             $admin_id=$_SESSION['admin_id'];
@@ -83,7 +87,9 @@ session_start();
     
 
 ?>
-<style> ::after.container{
+<style> 
+    
+    ::after.container{
       position: absolute;
       top: 50%;
       left: 50%;
@@ -99,19 +105,24 @@ session_start();
         background-color: cornflowerblue ;
         border-color: cornflowerblue;
         border-radius: 30px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
         
         
     }
     .box .content{
         
         width: 100%;
-        height: 50%;
+        height: 30%;
         
-      margin: 0 auto;
+        margin: 0 auto;
     }
     .box .content .child{
         width: 400px;
-        height: 50px;
+        height: 30px;
         margin: 0 auto;
         background-color: pink;
         
@@ -189,11 +200,20 @@ session_start();
         float: left;
         text-align: center;
     }
-    
+    #name{
+        text-align: center;
+        color: white;
+    }
     #text1{
         color: white;
 
-    }</style>
+    }
+    #text2{
+        color: white;
+        text-align: center;
+        font-size: 20px;
+    }
+    </style>
 
 <!DOCTYPE html>
 <html>
@@ -206,12 +226,16 @@ session_start();
                 <br>
                     <h2 id="text1">Edit</h2>
                     
-
-                     
                 </div>
                 <div class="content">
                         <form method="POST">
-                            <label for="name">Name</label>
+                            <div id="text2"><?=$displayName;?></div>
+                            <br>
+                            <div id="name">
+                                <label for="name">Name</label>
+                            </div>
+                            
+                            <br>
                             <input id="text" type="text" name="name" class="" style="float: top;">
                             <br> <br>
 
@@ -222,6 +246,7 @@ session_start();
                                 
                                 </div>
                                 <div class="box-btn">
+                                    
                                     <div class="back-btn"> 
                                         <a href="index-author.php">Back</a>
                                     </div>
